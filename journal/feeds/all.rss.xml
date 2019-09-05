@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<rss version="2.0">
+ <channel>
+  <title>My Blog: My Blog</title>
+  <description>My Blog: My Blog</description>
+  <link>http://www.example.com/index.html</link>
+  <lastBuildDate>Thu, 05 Sep 2019 15:17:55 UT</lastBuildDate>
+  <pubDate>Thu, 05 Sep 2019 15:17:55 UT</pubDate>
+  <ttl>1800</ttl>
+  <item>
+   <title>Edgar's post</title>
+   <link>http://www.example.com/2019/09/edgar-s-post.html?utm_source=all&amp;utm_medium=RSS</link>
+   <guid isPermaLink="false">urn:http-www-example-com:-2019-09-edgar-s-post-html</guid>
+   <pubDate>Thu, 05 Sep 2019 15:17:55 UT</pubDate>
+   <author>The Unknown Author</author>
+   <description>
+&lt;p&gt;&lt;em&gt;Replace this with your post text. Add one or more comma-separated Tags above. The special tag &lt;code&gt;DRAFT&lt;/code&gt; will prevent the post from being published.&lt;/em&gt;&lt;/p&gt;&lt;a href="http://www.example.com/2019/09/edgar-s-post.html?utm_source=all&amp;amp;utm_medium=RSS"&gt;&lt;em&gt;More&amp;hellip;&lt;/em&gt;&lt;/a&gt;</description></item></channel></rss>
