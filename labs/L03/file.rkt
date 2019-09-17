@@ -17,5 +17,6 @@
 (module+ test
   (require rackunit)
   (check-equal? (my-+ 1 1) 2 "Simple addition")
+  (check-equal? (my-* 0 2) 0 "Simple multiplication")
   (check-equal? (my-* 1 2) 2 "Simple multiplication")
   (check-equal? (my-* 3 2) 6 "Simple multiplication"))
