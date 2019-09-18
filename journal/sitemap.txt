@@ -1,4 +1,5 @@
 http://www.example.com/2019/09/lab-3.html
+http://www.example.com/2019/09/lab-4.html
 http://www.example.com/2019/09/edgar-s-post.html
 http://www.example.com/2019/09/lab-2.html
 http://www.example.com/About.html
