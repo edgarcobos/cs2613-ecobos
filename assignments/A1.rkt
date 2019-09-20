@@ -19,3 +19,9 @@
 
 (module+ test
   (check-equal? (sieve-with '(2 3) (list 2 3 4 5 6 7 8 9 10)) (list 2 3 5 7)))
+
+(define (sieve n)
+  (sieve-with (range 2 (add1 (sqrt n))) (range 2 (add1 n))))
+
+(module+ test
+  (check-equal? (sieve 10) (list 2 3 5 7)))
