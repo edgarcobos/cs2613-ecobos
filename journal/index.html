@@ -94,6 +94,59 @@
 
           <article>
   <header>
+    <h2><a href='/2019/09/lab-5.html'>Lab 5</a></h2>
+    <p class='date-and-tags'>
+<time datetime="2019-09-19" pubdate="true">2019-09-19</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
+    <p class='authors'>By: <span class="authors"><a href="/tags/Author-Edgar-Cobos.html">Edgar Cobos</a></span></p>
+  </header>
+
+<h2 id="tail-recursion">Tail Recursion</h2>
+
+<p>For Part 1, the task was to use the debugger to run the code for the <strong>odds-evens</strong> function. The purpose of this function is to count the number of odd and even numbers in a list. As we observed the stack in the debugger, it became clear that the function was not tail recursive, which implies the results of the recursive calls are processed further before returning.</p>
+
+<p>Afterwards, we completed the function <strong>odds-evens2</strong>, whose call to helper removes the first item of the list with ever call. It also increments either the odds or the evens argument by one, which represents a common pattern of replacing mutation with recursion. In order to test the stack usage of the function, we again used the debugger, this time, observing that the stack for this tail recursive function never got as deep as the one for the first implementation. Additionally, we were able to conclude that tail recursion is much more effecient in terms of stack since the calls to the helper function don&rsquo;t remain in the stack for very long.</p>
+
+<h2 id="for-loops">For Loops</h2>
+
+<p>In the following section, we learned about one Racket library form that allows to accumulate values. This form is called for/fold and it acts as a for loop. We looked at the function <strong>odds-evens3</strong> that implemented this form by setting an accumulator with an initial value of 0 for both the evens and the odds count. This function would loop over each element of a given list and, depending on whether it&rsquo;s even or odd, it would add one to either count. Finally, we looked into time comparison between the three different odds-evens implementations, concluding that the tail recursive function was the fastest one.</p>
+
+<h2 id="racket-review">Racket Review</h2>
+
+<p>New functions:</p>
+
+<ul>
+ <li>
+  <p><code>range</code></p></li>
+ <li>
+  <p><code>time</code></p></li></ul>
+
+<p>New forms:</p>
+
+<ul>
+ <li>
+  <p><code>for/fold</code></p></li>
+ <li>
+  <p><code>for*</code></p></li>
+ <li>
+  <p><code>for</code></p></li></ul>
+
+<p>New concepts</p>
+
+<ul>
+ <li>
+  <p>tail recursion</p></li>
+ <li>
+  <p>accumulator</p></li></ul>
+
+<h2 id="numerical-integration">Numerical Integration</h2>
+
+<p>In the last section of the lab, we practicing some more with tail recursion, and for loops and higher order functions by playing with derivative and integral calculation. Also, we explored unit tests even further, learning about the use of <code>check-=</code> for cases where there is a margin of error. This is a useful tool for when it comes to dealing with numbers with very high precision.</p>
+  <footer>
+    <a href='/2019/09/lab-5.html'>&hellip; more &hellip;</a>
+  </footer>
+</article>
+<article>
+  <header>
     <h2><a href='/2019/09/lab-4.html'>Lab 4</a></h2>
     <p class='date-and-tags'>
 <time datetime="2019-09-17" pubdate="true">2019-09-17</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
