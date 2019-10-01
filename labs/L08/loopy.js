@@ -1,5 +1,3 @@
-let hashtag = "#";
-for(var i = 0; i < 7; i++) {
-    console.log(hashtag);
-    hashtag += "#";
+for(var i = 2; i <= 8; i++) {
+    console.log(Array(i).join ("#"));
 }
