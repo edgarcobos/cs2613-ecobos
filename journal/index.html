@@ -94,6 +94,43 @@
 
           <article>
   <header>
+    <h2><a href='/2019/10/lab-8.html'>Lab 8</a></h2>
+    <p class='date-and-tags'>
+<time datetime="2019-10-01" pubdate="true">2019-10-01</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
+    <p class='authors'>By: <span class="authors"><a href="/tags/Author-Edgar-Cobos.html">Edgar Cobos</a></span></p>
+  </header>
+
+<h2 id="running-javascript">Running JavaScript</h2>
+
+<p>At the start of lab 7 we created a new file, added some JavaScripct code, started debugging, and commmited, all in VSCodium.</p>
+
+<h2 id="translating-racket-expressions-into-javascript">Translating Racket expressions into Javascript</h2>
+
+<p>Since our focus was to transition from Racket into Javascript, our first task involved filling in the JavaScript expressions equivalent to Racket expressions that were given to us. This expressions can be found in the file expr.js and they involve Racket procedures such as <code>string-append</code> and <code>equal?</code>.</p>
+
+<h2 id="looping">Looping</h2>
+
+<p>Our next two tasks involved loops, more specifically, for loops. The first one was to write a loop to generate the following output:</p>
+
+<p><code>#</code>
+ <br /><code>##</code>
+ <br /><code>###</code>
+ <br /><code>####</code>
+ <br /><code>#####</code>
+ <br /><code>######</code>
+ <br /><code>#######</code></p>
+
+<p>My solution initially looped from 0 to 6, priting one <code>#</code> the first time and added one more <code>#</code> to be printed during the next iteration. However, after I followed along the talk by <em>Gary Bernhardt</em>, I decided to print Array(i).join ("#") and looped from 2 to 8. This solution was a bit shorter than the previous one and it allowed me to explore another feature of javascript.</p>
+
+<p>Afterwards, we discussed about three &ldquo;special numbers&rdquo; in JavaScript: NaN, Infinity, and -Infinity and looked for arithmetic expressions that yield these three special numbers. Additionally we talked about <code>undefined</code> and <code>null</code> variables.</p>
+
+<p>Lastly, we solved the famous <strong>FizzBuzz</strong> problem, which is essentially some nested ifs inside a for loop. I tried both the obvious solution and the tricky one hinted at in the text without encountering any difficulty.</p>
+  <footer>
+    <a href='/2019/10/lab-8.html'>&hellip; more &hellip;</a>
+  </footer>
+</article>
+<article>
+  <header>
     <h2><a href='/2019/09/lab-7.html'>Lab 7</a></h2>
     <p class='date-and-tags'>
 <time datetime="2019-09-26" pubdate="true">2019-09-26</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
