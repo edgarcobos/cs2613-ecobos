@@ -81,3 +81,19 @@
     (first ;; first criteria group
      (criteria-groups (first rubrics))))
    'criteria_group))
+
+(define (criteria-names d)
+  (for/list
+      ([elt (assoc-all 'name (first (assoc-all 'criteria d)))]) ; for each name list under criteria
+    (second elt)))                                              ; return second element of list
+
+(define (criteria-levels d)                                         ; look for all:
+  (assoc-all 'level                                                 ; level
+             (first (assoc-all 'levels                              ; levels
+                               (first (assoc-all 'level_set d)))))) ; level_set within data
+
+(module+ test
+  (for ([level  (criteria-levels (first (criteria-groups (first rubrics))))])
+    (check-equal? (first level) 'level))
+  (check-equal? (sort (criteria-names (first (criteria-groups (first rubrics)))) string<=?)
+                '("Content" "Technical skills")))
