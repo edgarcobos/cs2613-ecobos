@@ -67,3 +67,17 @@
 (module+ test
   (check-equal? (assoc-all 'keep test-list) '([keep 2] [keep 4] [keep 5]))
   (check-equal? (assoc-all 'discard test-list) '()))
+
+(define (criteria-groups g)
+  (assoc-all 'criteria_group                          ; look for all criteria_group under criteria_groups
+             (first (assoc-all 'criteria_groups g)))) ; return a list of all criteria_group and then returns first one
+
+(module+ test
+  ;; Journals have one group, others have 2
+  (check-equal? (sort (map length (map criteria-groups rubrics)) <=)
+                '(1 2 2 2 2))
+  (check-equal?
+   (first ;; tag
+    (first ;; first criteria group
+     (criteria-groups (first rubrics))))
+   'criteria_group))
