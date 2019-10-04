@@ -39,3 +39,31 @@
    (sort (map rubric-name rubrics) string<=?)
    '("JavaScript Assignment" "Journal Entry" "Octave Assignment" "Python Assignment"
                              "Racket assignment")))
+
+(define (assoc-all value list)
+  (define (helper list)             ; navigate through sublists
+    (cond
+      [(empty? list) '()]           ; if the list is empty then return empty list
+      [(equal? (first list) value)  ; first element of the list is the value
+            list]                   ; return the list
+      [(list? (first list))         ; else if the first element of the list is a list
+       (helper (first list))]       ; look for value in list
+      [else (helper (rest list))])) ; else look into rest of list for value
+ 
+  (define (assoc value list)
+    (cond
+      [(empty? list) '()]                                          ; if value was not found return null
+      [(list? (first list))                                        ; first element of list is a list
+       (cons (helper (first list)) (assoc value (rest list)))]     ; call helper to find all occurances of value
+      [else (assoc value (rest list))]))                           ; else return recursive call with rest of list
+  (check-empty (assoc value list)))                                ; check if all sublists are empty
+
+(define (check-empty lst)
+  (cond              
+    [(empty? lst) '()]                            ; if list is empty return empty list
+    [(empty?(first lst)) (check-empty (cdr lst))] ; if first element of list is empty return recursive call with second element
+    [else lst]))                                  ; else return lst
+
+(module+ test
+  (check-equal? (assoc-all 'keep test-list) '([keep 2] [keep 4] [keep 5]))
+  (check-equal? (assoc-all 'discard test-list) '()))
