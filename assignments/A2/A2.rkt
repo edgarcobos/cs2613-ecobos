@@ -97,3 +97,15 @@
     (check-equal? (first level) 'level))
   (check-equal? (sort (criteria-names (first (criteria-groups (first rubrics)))) string<=?)
                 '("Content" "Technical skills")))
+
+(define (level-name-score d)
+  (second (for/list ([elt d])                                                             ; remove each level label from data and iterate over every element
+    (when (list? elt)                                                                     ; elt is a list
+      (list (second (third elt)) (exact-round (string->number(second (second elt))))))))) ; form a list with name and value
+
+(module+ test
+  (check-equal? (map level-name-score (criteria-levels (first (criteria-groups (first rubrics)))))
+                '(("Needs improvement" 0)
+                  ("Minimally satifactory" 1)
+                  ("Good" 2)
+                  ("Excellent" 3))))
