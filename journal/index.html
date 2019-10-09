@@ -109,31 +109,73 @@
 <p>Next, we went over the two ways of defining functions in JavaScript:</p>
 
 <ol>
- <li>
-  <p>By assigning an anonymous function to a variable <code>javascript
-let square = x =&gt; x*x;
-let square2 = function (x) {return x*x};</code></p></li>
- <li>
-  <p>Through the binding and creation of a function <code>javascript
-function square(x) { return x*x }</code></p></li></ol>
+ <li>By assigning an anonymous function to a variable</li>
+ <li>Through the binding and creation of a function</li></ol>
 
-<pre><code>Questions:
-+ Assignment (=) in Racket is different from binding (let, define) because assignment changes a value whereas binding creates an immutable variable.
-+ `return` is mandatory in order to tell our program when a function has end and what value to return as opposed to racket.
-+ arrow function vs regular function
-- Arrow functions do not have their own this.
-- Similarily, arrow functions are onlly callable and not constructible, meaning they cannot be constructed using the new keyword.
-- Additionally, argument objects are not available in arrow functions.</code></pre>
+<div class="brush: js">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2
+3
+4
+5
+6</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="c1">//1</span>
+<span class="kd">let</span> <span class="nx">square</span> <span class="o">=</span> <span class="nx">x</span> <span class="p">=&gt;</span> <span class="nx">x</span><span class="o">*</span><span class="nx">x</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">square2</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="nx">x</span><span class="o">*</span><span class="nx">x</span><span class="p">};</span>
 
-<p>Lastly, we looked over the recursive function <strong>plus</strong> and implemented <strong>mult</strong> based on it. <code>js
-**loop-arith.js**
-function mult(a,b) {
-    let sum = 0;
-    for(let i = 0; i &lt; a; i++) {
-        sum = plus(sum, b);
-    }
-    return sum;
-`}`</code></p>
+<span class="c1">//2</span>
+<span class="kd">function</span> <span class="nx">square</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span><span class="o">*</span><span class="nx">x</span> <span class="p">};</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<p>Answers from part 3:</p>
+
+<ul>
+ <li><code>Assignment (=) in Racket is different from binding (let, define) because assignment changes a value whereas binding creates an immutable variable.</code></li>
+ <li>`<code>return</code> is mandatory in order to tell our program when a function has end and what value to return as opposed to racket.`</li>
+ <li><code>arrow function vs regular function</code>
+  <ul>
+   <li><code>arrow functions do not have their own this</code></li>
+   <li><code>arrow functions are onlly cannot be constructed using the new keyword</code></li>
+   <li><code>argument objects are not available in arrow functions</code></li></ul></li></ul>
+
+<p>Lastly, we looked over the recursive function <strong>plus</strong> and implemented <strong>mult</strong> based on it.</p>
+
+<div class="brush: js">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="o">**</span><span class="nx">loop</span><span class="o">-</span><span class="nx">arith</span><span class="p">.</span><span class="nx">js</span><span class="o">**</span>
+<span class="kd">function</span> <span class="nx">mult</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">a</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">sum</span> <span class="o">=</span> <span class="nx">plus</span><span class="p">(</span><span class="nx">sum</span><span class="p">,</span> <span class="nx">b</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">sum</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
 
 <h2 id="nodejs-modules">Node.js modules</h2>
 
