@@ -94,6 +94,64 @@
 
           <article>
   <header>
+    <h2><a href='/2019/10/lab-9.html'>Lab 9</a></h2>
+    <p class='date-and-tags'>
+<time datetime="2019-10-03" pubdate="true">2019-10-03</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
+    <p class='authors'>By: <span class="authors"><a href="/tags/Author-Edgar-Cobos.html">Edgar Cobos</a></span></p>
+  </header>
+
+<h2 id="javascript-equallity-and-type-coercion">JavaScript equallity and type coercion</h2>
+
+<p>At the beginning of lab 9, we learned about equality and type coercion in JavaScript. We tried out the standard equality test <code>==</code>, which converts the operands if they are not of the same type before applying strict comparison. I also read that, if both operands are objects, then JavaScript compares internal references wich are equal when operands refer to the same object in memory. In addition, we tried out the &ldquo;strict equality&rdquo; checker <code>===</code>, which returns true if the operands are strictly equal with no type conversion. In order to avoid the twisty maze of &ldquo;helpful&rdquo; type coercion, it is suggested to use the strict equality checker.</p>
+
+<h2 id="javascript-functions">JavaScript functions</h2>
+
+<p>Next, we went over the two ways of defining functions in JavaScript:</p>
+
+<ol>
+ <li>
+  <p>By assigning an anonymous function to a variable <code>javascript
+let square = x =&gt; x*x;
+let square2 = function (x) {return x*x};</code></p></li>
+ <li>
+  <p>Through the binding and creation of a function <code>javascript
+function square(x) { return x*x }</code></p></li></ol>
+
+<pre><code>Questions:
++ Assignment (=) in Racket is different from binding (let, define) because assignment changes a value whereas binding creates an immutable variable.
++ `return` is mandatory in order to tell our program when a function has end and what value to return as opposed to racket.
++ arrow function vs regular function
+- Arrow functions do not have their own this.
+- Similarily, arrow functions are onlly callable and not constructible, meaning they cannot be constructed using the new keyword.
+- Additionally, argument objects are not available in arrow functions.</code></pre>
+
+<p>Lastly, we looked over the recursive function <strong>plus</strong> and implemented <strong>mult</strong> based on it. <code>js
+**loop-arith.js**
+function mult(a,b) {
+    let sum = 0;
+    for(let i = 0; i &lt; a; i++) {
+        sum = plus(sum, b);
+    }
+    return sum;
+`}`</code></p>
+
+<h2 id="nodejs-modules">Node.js modules</h2>
+
+<p>In this part, we took our functions from the previous excercise and exported them like so: <code>exports.plus = plus;</code>. In a new file <code>client.js</code> we required and used them like so: <code>let arith=require("./loop-arith.js"); console.log(arith.plus(2,2));</code>.</p>
+
+<h2 id="jasmine">Jasmine</h2>
+
+<p>Then, we learned about a popular unit testing framework for JavaScript called Jasmine. We made a test submodule that required the code from loop-arith and filled in the missing pieces from <strong>loop-arith.spec.js</strong> to make a passing test suite. In order to get test coverage information, we ran jasmine via another tool called nyc like so: <code>nyc jasmine</code>.</p>
+
+<h2 id="recursion-in-javascript">Recursion in JavaScript</h2>
+
+<p>Finally, we filled in the recursive defintion of <strong>mult</strong> for <strong>loop-arith2.js</strong> using <strong>plus</strong> based on the racket solution. We, then, made two test suites, one to test <strong>loop-arith2.js</strong> and another one to test <strong>loop-arith.js</strong> against <strong>loop-arith2.js</strong>.</p>
+  <footer>
+    <a href='/2019/10/lab-9.html'>&hellip; more &hellip;</a>
+  </footer>
+</article>
+<article>
+  <header>
     <h2><a href='/2019/10/lab-8.html'>Lab 8</a></h2>
     <p class='date-and-tags'>
 <time datetime="2019-10-01" pubdate="true">2019-10-01</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
