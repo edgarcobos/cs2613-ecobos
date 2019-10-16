@@ -94,6 +94,151 @@
 
           <article>
   <header>
+    <h2><a href='/2019/10/lab-12.html'>Lab 12</a></h2>
+    <p class='date-and-tags'>
+<time datetime="2019-10-16" pubdate="true">2019-10-16</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
+    <p class='authors'>By: <span class="authors"><a href="/tags/Author-Edgar-Cobos.html">Edgar Cobos</a></span></p>
+  </header>
+
+<h2 id="representing-a-graph">Representing a Graph</h2>
+
+<p><em>What is const?</em> Const is a way of creating an immutable variable. This means that a variable declared using cons will never change.</p>
+
+<p>At the beginning of lab 11, we practiced creating a graph representation of a town using objects. For this, we created an object with places as keys and a list of neighbours as values. When creating the test cases for the routes, we used objectContaining() to check that the list of places adjacent to &ldquo;Alice&rsquo;s House&rdquo; contained &ldquo;Bob&rsquo;s House&rdquo;.</p>
+
+<p>These are the test cases:</p>
+
+<div class="brush: js">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="nx">it</span><span class="p">(</span><span class="s2">"Alice&#39;s neighbours"</span><span class="p">,</span>
+<span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">roadGraph</span><span class="p">[</span><span class="s2">"Alice&#39;s House"</span><span class="p">].</span><span class="nx">sort</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">([</span><span class="s2">"Bob&#39;s House"</span><span class="p">,</span> <span class="s2">"Cabin"</span><span class="p">,</span> <span class="s2">"Post Office"</span><span class="p">]);</span>
+        <span class="p">});</span>
+<span class="nx">it</span><span class="p">(</span><span class="s2">"Bob&#39;s neighbours"</span><span class="p">,</span>
+<span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">roadGraph</span><span class="p">[</span><span class="s2">"Bob&#39;s House"</span><span class="p">]).</span><span class="nx">toEqual</span><span class="p">(</span><span class="nx">jasmine</span><span class="p">.</span><span class="nx">objectContaining</span><span class="p">([</span><span class="s2">"Alice&#39;s House"</span><span class="p">]));</span>
+<span class="p">});</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<h2 id="representing-state">Representing State</h2>
+
+<p><em>What property of the VillageState data stucture is emphasized in this section of the book?</em> The property of the VillageState data structure emphasizes is the parcel property.</p>
+
+<p><em>What &ldquo;update&rdquo; operation(s) in Racket does this remind you of?</em> The &ldquo;update&rdquo; operation reminds me of <code>set</code> in Racket.</p>
+
+<p>Next, we went over classes. We looked at the VillageState class with the function <code>move</code>. This function moves a parcel from the current place to a new one if the path is valid. It would also drop off any packages in their destination. Then, we converted code that logged <strong>next.place</strong>, <strong>next.parcels</strong>, and <strong>first.place</strong> into the console and used it to write our unit tests:</p>
+
+<div class="brush: js">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="kd">let</span> <span class="nx">first</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VillageState</span><span class="p">(</span>
+    <span class="s2">"Post Office"</span><span class="p">,</span>
+    <span class="p">[{</span><span class="nx">place</span><span class="o">:</span> <span class="s2">"Post Office"</span><span class="p">,</span> <span class="nx">address</span><span class="o">:</span> <span class="s2">"Alice&#39;s House"</span><span class="p">},</span> <span class="p">{</span><span class="nx">place</span><span class="o">:</span> <span class="s2">"Mars"</span><span class="p">,</span> <span class="nx">address</span><span class="o">:</span> <span class="s2">"Jupiter"</span><span class="p">}]</span>
+<span class="p">);</span>
+<span class="kd">let</span> <span class="nx">next</span> <span class="o">=</span> <span class="nx">first</span><span class="p">.</span><span class="nx">move</span><span class="p">(</span><span class="s2">"Alice&#39;s House"</span><span class="p">);</span>
+<span class="nx">it</span><span class="p">(</span><span class="s2">"move changes place"</span><span class="p">,</span>
+<span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">next</span><span class="p">.</span><span class="nx">place</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s2">"Alice&#39;s House"</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="nx">it</span><span class="p">(</span><span class="s2">"parcel is delivered"</span><span class="p">,</span>
+<span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">next</span><span class="p">.</span><span class="nx">parcels</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">([{</span><span class="nx">place</span><span class="o">:</span> <span class="s2">"Mars"</span><span class="p">,</span> <span class="nx">address</span><span class="o">:</span> <span class="s2">"Jupiter"</span><span class="p">}]);</span>
+<span class="p">});</span>
+<span class="nx">it</span><span class="p">(</span><span class="s2">"move does not modify"</span><span class="p">,</span>
+<span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">first</span><span class="p">.</span><span class="nx">place</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s2">"Post Office"</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<h2 id="testing-the-random-robot">Testing the random robot</h2>
+
+<p>The last section, we explored mock tests by using the <code>spy</code> utility to help us intercept calls to a function and record what they are called with. For this, we used the <code>runRobot</code> function that is used to deliver packages through <code>randomPick</code> and <code>randomRobot</code>. Then, we intercepted the calls made to <code>console.log</code> to check if it was called with the correct string and, thus, we were able to determine the success of <code>runRobot</code>.</p>
+
+<p>Mock tests using <code>spy</code>:</p>
+
+<div class="brush: js">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="nx">it</span><span class="p">(</span><span class="s2">"no parcels"</span><span class="p">,</span>
+    <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="o">=</span> <span class="nx">jasmine</span><span class="p">.</span><span class="nx">createSpy</span><span class="p">(</span><span class="s2">"log"</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">noParcels</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VillageState</span><span class="p">(</span><span class="s2">"Post Office"</span><span class="p">,[]);</span>
+    <span class="nx">village</span><span class="p">.</span><span class="nx">runRobot</span><span class="p">(</span><span class="nx">noParcels</span><span class="p">);</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">).</span><span class="nx">toHaveBeenCalledWith</span><span class="p">(</span><span class="s2">"Done in 0 turns"</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="nx">it</span><span class="p">(</span><span class="s2">"randomRobot"</span><span class="p">,</span>
+    <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="o">=</span> <span class="nx">jasmine</span><span class="p">.</span><span class="nx">createSpy</span><span class="p">(</span><span class="s2">"log"</span><span class="p">);</span>
+    <span class="nx">village</span><span class="p">.</span><span class="nx">runRobot</span><span class="p">(</span><span class="nx">VillageState</span><span class="p">.</span><span class="nx">random</span><span class="p">(),</span> <span class="nx">village</span><span class="p">.</span><span class="nx">randomRobot</span><span class="p">);</span>
+    <span class="nx">expect</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">).</span><span class="nx">toHaveBeenCalledWith</span><span class="p">(</span><span class="nx">jasmine</span><span class="p">.</span><span class="nx">stringMatching</span><span class="p">(</span><span class="sr">/^Done/</span><span class="p">));</span>
+<span class="p">});</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+  <footer>
+    <a href='/2019/10/lab-12.html'>&hellip; more &hellip;</a>
+  </footer>
+</article>
+<article>
+  <header>
     <h2><a href='/2019/10/lab-11.html'>Lab 11</a></h2>
     <p class='date-and-tags'>
 <time datetime="2019-10-15" pubdate="true">2019-10-15</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
@@ -146,7 +291,7 @@
 
 <h2 id="flatten">Flatten</h2>
 
-<p>Next, we practiced using <code>reduce</code> and <code>concat</code> to &ldquo;flatten&rdquo; an array of arrays into a single array that has all the elements of the original arrays. With reduce, we were able to iterate over the elements while concat allowed us to add each element to the solution array, which is initially an empty array. The solution to this exercise was not very complex thanks to the functionality of <code>reduce</code> and <code>concat</code>. However, it only worked for one level of nesting, for which it would need to be implement recursively.</p>
+<p>Next, we practiced using <code>reduce</code> and <code>concat</code> to &ldquo;flatten&rdquo; an array of arrays into a single array that has all the elements of the original arrays. With reduce, we were able to iterate over the elements while concat allowed us to add each element to the solution array, which is initially an empty array. The solution to this exercise was not very complex thanks to the help of <code>reduce</code> and <code>concat</code>. However, it only worked for one level of nesting, for which it would need to be implement recursively.</p>
 
 <p><strong>Flatten</strong></p>
 
@@ -710,19 +855,6 @@
 <p>In Lab 3 of the Programming Languages Lab, the main focus was to start using the Racket programming language. Specifically, we reviewed recursion -a concept I was already familiar from Introduction to Computer Programming II- and the racket syntax. The first function that we looked at was the my-map function, which basically takes a list of elements and passes them into a function that puts the output into a new list. We took this code and repurposed it to make a new function that takes an object, suppose a circle, and colors each element with a different color of the rainbow in a recursive manner. Understanding racket took a bit of time, but at the end of this lab, I feel more comfortable with its syntax and implementing basic recursive functions. Once we covered recursive functions we moved on to test submodules. For this, we used two functions for adding and multiplying from Dr. Bremener’s site. After adding test submodule with tests, we observed that the multiplication test failed, so our task was to fix the multiplication function. My solution was changing the base cases to return 0 if a is equal to 0 and return b if a is equal to 1 and else call the multiplication function again with (sub1 a) and b and add b to the result using the addition function already provided. When I ran the program, I finally observed no output from the tests, which meant success. Then, I enabled syntatic suit coverage in drracket and added 1 additional test for when a is equal to 0. Once I had complete test coverage, I commited the changes to git and pushed it to coursegit.</p>
   <footer>
     <a href='/2019/09/lab-3.html'>&hellip; more &hellip;</a>
-  </footer>
-</article>
-<article>
-  <header>
-    <h2><a href='/2019/09/lab-2.html'>Lab 2</a></h2>
-    <p class='date-and-tags'>
-<time datetime="2019-09-16" pubdate="true">2019-09-16</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
-    <p class='authors'>By: <span class="authors"><a href="/tags/Author-Edgar-Cobos.html">Edgar Cobos</a></span></p>
-  </header>
-
-<p>In lab 2, I learned about several new concepts related to the Racket programming language, including: Definitions, Local Binding, Lexical Scope, Lists, and Modules. As a warm-up, I created a program that printed &ldquo;hello world&rdquo;. After this, I started DrRacket and set it up by inserting #lang slideshow into the definitions area (top text area) to load some picture functions. By this point, I was ready to type some expressions into the interactions area (bottom text area), for DrRacket to evaluate and print their result. I evaluated function calls, such as the circle and the rectangle function that print a picture value of a specified size, which I found pretty interesting. Then, I learned about one last function, called hc-append, which basically combines pictures horizontally, and centers them vertically. Next, I learned about Definitions and added a function that printed a filled-rectange with equal sides of a specified length. Moreover, I learned about Local Binding and used the define form inside a function body to horizontally combine two pictures and be able to use this definition to vertically combine its results, creating a simple local binding. Additionally, I learned about two more forms of local binding: the let form that binds many identifiers at the same time, and the let* form that allows later bindings to use earlier bindings. By the end of this lab, I understand that Racket is a lexally scoped language, which means that whenever an identifier is used as an expression, something in the textual scope of the expression determines the identifier&rsquo;s binding. Also, I understand the list function as well as the map function that takes a list and a function to apply to each element of the list. Finally, I understand Modules and how to import additional libraries by using the require form.</p>
-  <footer>
-    <a href='/2019/09/lab-2.html'>&hellip; more &hellip;</a>
   </footer>
 </article>
 <footer>
