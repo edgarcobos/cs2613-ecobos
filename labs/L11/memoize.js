@@ -5,13 +5,13 @@ let data = null;
 
 function by_name(name){
     if (data===null)
-        data=read_json_file("big.json");
+        data=read_json_file("ancestry.json");
     if (cache[name] != undefined)
         return cache[name];
     // loop goes here
     for(let i in data) {
-        if(data[i] === name) {
-            return data[i];
+        if(data[i].name === name) {
+            cache[name] = data[i];
         }
     }
     return null;

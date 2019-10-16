@@ -4,7 +4,7 @@ let data = null;
 
 function by_name(name){
     if (data===null)
-        data=read_json_file("big.json");
+        data=read_json_file("ancestry.json");
     // simple linear scan
     for(let i in data) {
         let current_name = data[i].name;

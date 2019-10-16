@@ -8,4 +8,5 @@ http://www.example.com/2019/09/lab-3.html
 http://www.example.com/2019/09/lab-5.html
 http://www.example.com/2019/10/lab-9.html
 http://www.example.com/2019/09/lab-7.html
+http://www.example.com/2019/10/lab-11.html
 http://www.example.com/About.html
