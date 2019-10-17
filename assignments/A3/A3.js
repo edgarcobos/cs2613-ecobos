@@ -38,4 +38,24 @@ function summarize_mail(filename) {
 
 exports.summarize_mail = summarize_mail;
 
+//Represents a message object with properties subject, date, from, to and equals method
+class Message {
+    constructor(email) {
+        this.subject = email.headers.Subject;
+        this.date = email.headers.Date;
+        this.from = email.headers.From;
+        this.to = email.headers.To;
+    }
 
+    //compares the value for each key between two Message objects
+    equals(other) {
+        for(let i in Object.values(this)) {
+            if(!(Object.values(this)[i] === Object.values(other)[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+exports.Message = Message;
