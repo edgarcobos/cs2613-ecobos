@@ -94,6 +94,173 @@
 
           <article>
   <header>
+    <h2><a href='/2019/10/lab-13.html'>Lab 13</a></h2>
+    <p class='date-and-tags'>
+<time datetime="2019-10-22" pubdate="true">2019-10-22</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
+    <p class='authors'>By: <span class="authors"><a href="/tags/Author-Edgar-Cobos.html">Edgar Cobos</a></span></p>
+  </header>
+
+<h2 id="timers">Timers</h2>
+
+<p>At the beginning of Lab 13, we went over asynchronous programming in JavaScript. We looked at the <code>setTimout</code> function which takes in a callback function and an amount of time to wait before calling the function. This imitates a sleep function with some drawbacks. Since JavaScript runs asynchronously it will run code that is sequentially after the <code>setTimeout</code> call, which may produce an error linked to order of operations. In this case, <code>setTimeout</code> was used in a function to print out an increasing number of <code>*</code>, imitating a progress bar, which looked like this:</p>
+
+<div class="brush: js">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="kd">function</span> <span class="nx">loop</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">i</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"\033c"</span><span class="p">);</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span>
+        <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">loop</span><span class="p">(</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">str</span><span class="o">+</span><span class="s2">"*"</span><span class="p">);</span> <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"all done!"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">loop</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="s2">"*"</span><span class="p">);</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<p>After implementing our progress bar using the <code>setTimeout</code> function, we were introduced to <code>setInterval</code> and <code>clearInterval</code> that have the purpose to set up a recurring timer to call a function after a specified amount of time. In this case, the functions were used to again produce our own progress bar with a 300ms interaval before each additional <code>*</code>. Once the desired number of iterations was reached, the function printed &ldquo;all done!&rdquo; and cleared the interval.</p>
+
+<div class="brush: js">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="kd">function</span> <span class="nx">animate</span><span class="p">(</span><span class="nx">iterations</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">str</span><span class="o">=</span><span class="s2">""</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">timer</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="kd">function</span> <span class="nx">frame</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// add code here</span>
+        <span class="nx">i</span><span class="o">++</span><span class="p">;</span>
+        <span class="nx">str</span> <span class="o">+=</span> <span class="s2">"*"</span><span class="p">;</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;\033c&#39;</span><span class="p">);</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">i</span><span class="o">&gt;=</span><span class="nx">iterations</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// and here</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"all done"</span><span class="p">);</span>
+            <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">timer</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nx">timer</span><span class="o">=</span><span class="nx">setInterval</span><span class="p">(</span><span class="nx">frame</span><span class="p">,</span><span class="mi">300</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">animate</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<h2 id="overloading-tostring">Overloading toString</h2>
+
+<p>Next, we practiced method overloading by taking the <strong>VillageState</strong> class from the previous lab and overloading the <code>toString</code> method to print a grid of places with the location of the robot.</p>
+
+<div class="brush: js">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="nx">toString</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">out</span><span class="o">=</span><span class="s2">"---------\n"</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">row</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">row</span><span class="o">&lt;</span><span class="nx">villageMap</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">row</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">out</span> <span class="o">+=</span> <span class="s2">"|"</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">col</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">col</span><span class="o">&lt;</span><span class="nx">villageMap</span><span class="p">[</span><span class="nx">row</span><span class="p">].</span><span class="nx">length</span><span class="p">;</span> <span class="nx">col</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// your code goes here</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">villageMap</span><span class="p">[</span><span class="nx">row</span><span class="p">][</span><span class="nx">col</span><span class="p">]</span><span class="o">===</span><span class="kc">null</span><span class="p">)</span>
+        <span class="nx">out</span> <span class="o">+=</span> <span class="s2">" "</span><span class="p">;</span>
+      <span class="k">else</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">place</span> <span class="o">===</span> <span class="nx">villageMap</span><span class="p">[</span><span class="nx">row</span><span class="p">][</span><span class="nx">col</span><span class="p">])</span>
+          <span class="nx">out</span> <span class="o">+=</span> <span class="k">this</span><span class="p">.</span><span class="nx">parcels</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+        <span class="k">else</span>
+          <span class="nx">out</span> <span class="o">+=</span> <span class="nx">villageMap</span><span class="p">[</span><span class="nx">row</span><span class="p">][</span><span class="nx">col</span><span class="p">].</span><span class="nx">toLowerCase</span><span class="p">()[</span><span class="mi">0</span><span class="p">];</span>
+      <span class="p">}</span>
+      <span class="nx">out</span> <span class="o">+=</span> <span class="s2">"|"</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">out</span> <span class="o">+=</span> <span class="s2">"\n---------\n"</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">out</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<h2 id="animating-the-map">Animating the map</h2>
+
+<p>The last section of the lab integrated all of the concepts from the previous parts to animate the progress of a robot delivering parcels.</p>
+
+<p>Why does the last part where the robot wanders around with one parcel, typically take so long? In order to reach the last part, the robot has to keep bouncing randomly between places until visiting the final place, which typically take a while.</p>
+  <footer>
+    <a href='/2019/10/lab-13.html'>&hellip; more &hellip;</a>
+  </footer>
+</article>
+<article>
+  <header>
     <h2><a href='/2019/10/lab-12.html'>Lab 12</a></h2>
     <p class='date-and-tags'>
 <time datetime="2019-10-16" pubdate="true">2019-10-16</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
@@ -842,19 +1009,6 @@
 <p>At the beginning of Lab 4, we discussed the similarities and differences between racket and Java. First, we looked at #lang racket and #lang slideshow which are the equivalent to import statements in Java. We also looked at (+ 1 2) which calls the function + and passes it two numbers to be added together. In Java, you don&rsquo;t need to make a funciton call to add and rather just add like so: 1 + 2. As we moved on to (rectangle 10 10), which in Java would be something like new Rectangle(10 10), we were able to identify a difference between racket and java, which is that racket allows printing picure values while Java does not. Next, (define r 10) is very similar to "int r = 10&rsquo; with the main difference being that in racket we don&rsquo;t need to specify what type of variable r is. The function (define (square x) (rectangle x x)) can be compared to having a Rectangle class and a Square class, whose constructor method initializes a Rectangle of same sides by passing the specified length as both arguments. The colorize function used as in (colorize (square 10) "red") would have no effect in Java as picture values don&rsquo;t exist but again the concept of calling a function with two parameters is the same. Lastly, the binding (let* ([x 10] [y (+ x 10)]) (* x y)) would be equivalent to writing &rsquo;int x = 10; int y = x + 10; return x*y;&rsquo; in Java, with no major difference. Afterwards, I learned about the build-list function, which basically creates a list of elements of a specified length and applies a specified procedure to them. Then, we practiced some more recursion and I noticed that it took me less time to solve the excercises than previously. Also, I followed along the Scribble Demo and created a new blog entry, implemented racket definitions for hello, greet and todo and their invocations can be found at the bottom of this post. Finally, we further explored modules, submodules, require, and provide by creating a module- with a test submodule and a main submodule- that acted as a library through require and provide.</p>
   <footer>
     <a href='/2019/09/lab-4.html'>&hellip; more &hellip;</a>
-  </footer>
-</article>
-<article>
-  <header>
-    <h2><a href='/2019/09/lab-3.html'>Lab 3</a></h2>
-    <p class='date-and-tags'>
-<time datetime="2019-09-16" pubdate="true">2019-09-16</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
-    <p class='authors'>By: <span class="authors"><a href="/tags/Author-Edgar-Cobos.html">Edgar Cobos</a></span></p>
-  </header>
-
-<p>In Lab 3 of the Programming Languages Lab, the main focus was to start using the Racket programming language. Specifically, we reviewed recursion -a concept I was already familiar from Introduction to Computer Programming II- and the racket syntax. The first function that we looked at was the my-map function, which basically takes a list of elements and passes them into a function that puts the output into a new list. We took this code and repurposed it to make a new function that takes an object, suppose a circle, and colors each element with a different color of the rainbow in a recursive manner. Understanding racket took a bit of time, but at the end of this lab, I feel more comfortable with its syntax and implementing basic recursive functions. Once we covered recursive functions we moved on to test submodules. For this, we used two functions for adding and multiplying from Dr. Bremener’s site. After adding test submodule with tests, we observed that the multiplication test failed, so our task was to fix the multiplication function. My solution was changing the base cases to return 0 if a is equal to 0 and return b if a is equal to 1 and else call the multiplication function again with (sub1 a) and b and add b to the result using the addition function already provided. When I ran the program, I finally observed no output from the tests, which meant success. Then, I enabled syntatic suit coverage in drracket and added 1 additional test for when a is equal to 0. Once I had complete test coverage, I commited the changes to git and pushed it to coursegit.</p>
-  <footer>
-    <a href='/2019/09/lab-3.html'>&hellip; more &hellip;</a>
   </footer>
 </article>
 <footer>
