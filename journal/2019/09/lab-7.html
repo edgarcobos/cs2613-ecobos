@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <title>Lab 7</title>
+    <meta name="description" content="Macros:  The first task of lab 7 was to define syntax rules for the boolean logic operations **and** and **or**. For this, we defined **And** so that it would make an evaluation between two arguments like the lower case version **and** would, except the s...">
+    <meta name="author"      content="The Unknown Author">
+    <meta name="keywords"    content="all, Author: Edgar Cobos">
+    <meta name="viewport"    content="width=device-width, initial-scale=1.0">
+    <link rel="icon"      href="/favicon.ico">
+    <link rel="canonical" href="http://www.example.com/2019/09/lab-7.html">
+    <link rel="next" href="/2019/09/lab-6.html">
+    <link rel="prev" href="/2019/10/lab-8.html">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/pygments.css">
+    <link rel="stylesheet" type="text/css" href="/css/scribble.css">
+    <link rel="stylesheet" type="text/css" href="/css/custom.css">
+    <!-- Feeds -->
+    <link rel="alternate" type="application/atom+xml"
+          href="/feeds/all.atom.xml" title="Atom Feed">
+    <link rel="alternate" type="application/rss+xml"
+          href="/feeds/all.rss.xml" title="RSS Feed">
+    <!-- JS -->
+    <script type="text/javascript">
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-xxxxx', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+
+    <!-- A standard Twitter Bootstrap nav bar -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <div class="container">
+
+      <a href="/index.html" class="navbar-brand">My Blog Brand</a>
+
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+              data-target="#navbar_collapse" aria-controls="navbar_collapse"
+              aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbar_collapse">
+          <ul class="navbar-nav mr-auto">
+
+
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                Tags <b class="caret"></b>
+              </a>
+
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="/tags/Author-Edgar-Cobos.html">Author: Edgar Cobos</a>
+              </div>
+            </li>
+
+            <li>
+              <a class="nav-link" href="/About.html">About</a>
+            </li> 
+
+            <li class="nav-item">
+              <a class="nav-link" href="/feeds/all.atom.xml">Atom</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/feeds/all.rss.xml">RSS</a>
+            </li>
+          </ul>
+      </div>
+
+      </div>
+    </nav>
+
+
+    <div class="container">
+      <div class="row">
+
+        <!-- Main column -->
+        <div id="content" class="col-md-12">
+
+
+
+
+
+          <article>
+  <header>
+    <h1>Lab 7</h1>
+    <p class='date-and-tags'>
+<time datetime="2019-09-26" pubdate="true">2019-09-26</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
+    <p class='authors'>By: <span class="authors"><a href="/tags/Author-Edgar-Cobos.html">Edgar Cobos</a></span></p>
+  </header>
+
+<h2 id="macros">Macros</h2>
+
+<p>The first task of lab 7 was to define syntax rules for the boolean logic operations <strong>and</strong> and <strong>or</strong>. For this, we defined <strong>And</strong> so that it would make an evaluation between two arguments like the lower case version <strong>and</strong> would, except the short-circuit evaluation would be done from the right. We looked over a test submodule with <code>check-exn</code> that takes a <em>thunk</em> as an argument, or, as we learned, a function with zero paramters. In this case, lambda was used to delay evaluation in <code>check-exn</code> and it was pointed out that such boilerplate could be avoid with a syntax rule.</p>
+
+<p>Our next task was to define <strong>Or</strong> in a similar way to <strong>And</strong> and test it out. I found this short-circuit evaluation relatively easy to implement and I considered it a good review of <em>Discrete Structures</em> and operations using boolean logic.</p>
+
+<h2 id="pattern-matching">Pattern Matching</h2>
+
+<p>We learned a new useful feature of racket called <em>pattern matching</em> as used in <code>syntax-case</code> and function definitions using <code>match</code>, which specifies a pattern to match against the data. We looked over an implementation of the function <code>my-map</code> that used <code>match</code> and compared it to its original implementation that used <code>cond</code>, helping us understand the application of <code>match</code>. Additionaly, we used the &hellip; &ldquo;collector pattern&rdquo; as it is a common racket idiom. Then, we were instructed to implement let* in terms of let using a macro for which we had to complete the skeleton for the let-transformer module.</p>
+
+<h2 id="from-list-transformers-to-macros">From list transformers to macros</h2>
+
+<p>Finally, we used <code>syntax-case</code> in a similar way to how we used <code>match</code>, but this time to define the macro <strong>Let^</strong>. Using <code>syntax-case</code> eliminated the need to write a separate transformer. The patterns for this statement are analogous to match so our task only required to reverse engineer them.</p>
+<!-- more-->
+  <footer>
+  </footer>
+</article>
+        </div>
+      </div>
+      <footer>
+        <hr />
+        <p><a href="https://twitter.com/racketlang"
+              class="twitter-follow-button"
+              data-show-count="false"
+              data-lang="en">
+             "Follow RacketLang"
+           </a>
+           <script type="text/javascript">
+             !function(d,s,id){
+                 var js,fjs=d.getElementsByTagName(s)[0];
+                 if(!d.getElementById(id)){
+                     js=d.createElement(s);
+                     js.id=id;
+                     js.src="//platform.twitter.com/widgets.js";
+                     fjs.parentNode.insertBefore(js,fjs);
+                 }
+             }(document,"script","twitter-wjs");
+           </script></p>
+        <p>Site generated
+        by <a href="https://github.com/greghendershott/frog">Frog</a>,
+        the <strong>fr</strong>ozen bl<strong>og</strong> tool.</p>
+        <p>Using <a href="http://twitter.github.com/bootstrap/index.html">Bootstrap</a>.</p>
+        <p><em>Your legal notice here</em>.</p>
+      </footer>
+    </div>
+    <!-- </body> JS -->
+    <script type="text/javascript" src="/js/jquery-3.2.1.slim.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <title>Lab 9</title>
+    <meta name="description" content="JavaScript equallity and type coercion:  At the beginning of lab 9, we learned about equality and type coercion in JavaScript. We tried out the standard equality test `==`, which converts the operands if they are not of the same type before applying stric...">
+    <meta name="author"      content="The Unknown Author">
+    <meta name="keywords"    content="all, Author: Edgar Cobos">
+    <meta name="viewport"    content="width=device-width, initial-scale=1.0">
+    <link rel="icon"      href="/favicon.ico">
+    <link rel="canonical" href="http://www.example.com/2019/10/lab-9.html">
+    <link rel="next" href="/2019/10/lab-8.html">
+    <link rel="prev" href="/2019/10/lab-10.html">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/pygments.css">
+    <link rel="stylesheet" type="text/css" href="/css/scribble.css">
+    <link rel="stylesheet" type="text/css" href="/css/custom.css">
+    <!-- Feeds -->
+    <link rel="alternate" type="application/atom+xml"
+          href="/feeds/all.atom.xml" title="Atom Feed">
+    <link rel="alternate" type="application/rss+xml"
+          href="/feeds/all.rss.xml" title="RSS Feed">
+    <!-- JS -->
+    <script type="text/javascript">
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-xxxxx', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+
+    <!-- A standard Twitter Bootstrap nav bar -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <div class="container">
+
+      <a href="/index.html" class="navbar-brand">My Blog Brand</a>
+
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+              data-target="#navbar_collapse" aria-controls="navbar_collapse"
+              aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbar_collapse">
+          <ul class="navbar-nav mr-auto">
+
+
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                Tags <b class="caret"></b>
+              </a>
+
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="/tags/Author-Edgar-Cobos.html">Author: Edgar Cobos</a>
+              </div>
+            </li>
+
+            <li>
+              <a class="nav-link" href="/About.html">About</a>
+            </li> 
+
+            <li class="nav-item">
+              <a class="nav-link" href="/feeds/all.atom.xml">Atom</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/feeds/all.rss.xml">RSS</a>
+            </li>
+          </ul>
+      </div>
+
+      </div>
+    </nav>
+
+
+    <div class="container">
+      <div class="row">
+
+        <!-- Main column -->
+        <div id="content" class="col-md-12">
+
+
+
+
+
+          <article>
+  <header>
+    <h1>Lab 9</h1>
+    <p class='date-and-tags'>
+<time datetime="2019-10-03" pubdate="true">2019-10-03</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
+    <p class='authors'>By: <span class="authors"><a href="/tags/Author-Edgar-Cobos.html">Edgar Cobos</a></span></p>
+  </header>
+
+<h2 id="javascript-equallity-and-type-coercion">JavaScript equallity and type coercion</h2>
+
+<p>At the beginning of lab 9, we learned about equality and type coercion in JavaScript. We tried out the standard equality test <code>==</code>, which converts the operands if they are not of the same type before applying strict comparison. I also read that, if both operands are objects, then JavaScript compares internal references wich are equal when operands refer to the same object in memory. In addition, we tried out the &ldquo;strict equality&rdquo; checker <code>===</code>, which returns true if the operands are strictly equal with no type conversion. In order to avoid the twisty maze of &ldquo;helpful&rdquo; type coercion, it is suggested to use the strict equality checker.</p>
+
+<h2 id="javascript-functions">JavaScript functions</h2>
+
+<p>Next, we went over the two ways of defining functions in JavaScript:</p>
+
+<ol>
+ <li>By assigning an anonymous function to a variable</li>
+ <li>Through the binding and creation of a function</li></ol>
+
+<div class="brush: js">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2
+3
+4
+5
+6</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="c1">//1</span>
+<span class="kd">let</span> <span class="nx">square</span> <span class="o">=</span> <span class="nx">x</span> <span class="p">=&gt;</span> <span class="nx">x</span><span class="o">*</span><span class="nx">x</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">square2</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="nx">x</span><span class="o">*</span><span class="nx">x</span><span class="p">};</span>
+
+<span class="c1">//2</span>
+<span class="kd">function</span> <span class="nx">square</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span><span class="o">*</span><span class="nx">x</span> <span class="p">};</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<p>Answers from part 3:</p>
+
+<ul>
+ <li><code>Assignment (=) in Racket is different from binding (let, define) because assignment changes a value whereas binding creates an immutable variable.</code></li>
+ <li>`<code>return</code> is mandatory in order to tell our program when a function has end and what value to return as opposed to racket.`</li>
+ <li><code>arrow function vs regular function</code>
+  <ul>
+   <li><code>arrow functions do not have their own this</code></li>
+   <li><code>arrow functions are onlly cannot be constructed using the new keyword</code></li>
+   <li><code>argument objects are not available in arrow functions</code></li></ul></li></ul>
+
+<p>Lastly, we looked over the recursive function <strong>plus</strong> and implemented <strong>mult</strong> based on it.</p>
+
+<div class="brush: js">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="c1">//loop-arith.js</span>
+<span class="kd">function</span> <span class="nx">mult</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">a</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">sum</span> <span class="o">=</span> <span class="nx">plus</span><span class="p">(</span><span class="nx">sum</span><span class="p">,</span> <span class="nx">b</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">sum</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<h2 id="nodejs-modules">Node.js modules</h2>
+
+<p>In this part, we took our functions from the previous excercise and exported them like so: <code>exports.plus = plus;</code>. In a new file <code>client.js</code> we required and used them like so: <code>let arith=require("./loop-arith.js"); console.log(arith.plus(2,2));</code>.</p>
+
+<h2 id="jasmine">Jasmine</h2>
+
+<p>Then, we learned about a popular unit testing framework for JavaScript called Jasmine. We made a test submodule that required the code from loop-arith and filled in the missing pieces from <strong>loop-arith.spec.js</strong> to make a passing test suite. In order to get test coverage information, we ran jasmine via another tool called nyc like so: <code>nyc jasmine</code>.</p>
+
+<h2 id="recursion-in-javascript">Recursion in JavaScript</h2>
+
+<p>Finally, we filled in the recursive defintion of <strong>mult</strong> for <strong>loop-arith2.js</strong> using <strong>plus</strong> based on the racket solution. We, then, made two test suites, one to test <strong>loop-arith2.js</strong> and another one to test <strong>loop-arith.js</strong> against <strong>loop-arith2.js</strong>.</p>
+<!-- more-->
+  <footer>
+  </footer>
+</article>
+        </div>
+      </div>
+      <footer>
+        <hr />
+        <p><a href="https://twitter.com/racketlang"
+              class="twitter-follow-button"
+              data-show-count="false"
+              data-lang="en">
+             "Follow RacketLang"
+           </a>
+           <script type="text/javascript">
+             !function(d,s,id){
+                 var js,fjs=d.getElementsByTagName(s)[0];
+                 if(!d.getElementById(id)){
+                     js=d.createElement(s);
+                     js.id=id;
+                     js.src="//platform.twitter.com/widgets.js";
+                     fjs.parentNode.insertBefore(js,fjs);
+                 }
+             }(document,"script","twitter-wjs");
+           </script></p>
+        <p>Site generated
+        by <a href="https://github.com/greghendershott/frog">Frog</a>,
+        the <strong>fr</strong>ozen bl<strong>og</strong> tool.</p>
+        <p>Using <a href="http://twitter.github.com/bootstrap/index.html">Bootstrap</a>.</p>
+        <p><em>Your legal notice here</em>.</p>
+      </footer>
+    </div>
+    <!-- </body> JS -->
+    <script type="text/javascript" src="/js/jquery-3.2.1.slim.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
