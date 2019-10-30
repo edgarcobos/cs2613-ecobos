@@ -94,6 +94,107 @@
 
           <article>
   <header>
+    <h2><a href='/2019/10/lab-15.html'>Lab 15</a></h2>
+    <p class='date-and-tags'>
+<time datetime="2019-10-29" pubdate="true">2019-10-29</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
+    <p class='authors'>By: <span class="authors"><a href="/tags/Author-Edgar-Cobos.html">Edgar Cobos</a></span></p>
+  </header>
+
+<h2 id="problem-description">Problem Description</h2>
+
+<p>The lab started with a demo of postfix or reverse polish notation, where, opposite to infix notation, numbers are given first and then the desired operation. The demo was followed by a discussion of the requirements to write a program for a postfix calculator. As for the input requirements, the program should read and process lines of input one at a time, until it reads &lsquo;quit&rsquo; on a line by itself. Each line of input will either be an integer, or a string <code>+, -, \*, /, ^, print, pop, swap, dup</code> representing an operation. The output will depend on the print operations from input, which results in printing the top element of the stack.</p>
+
+<h2 id="numbers">Numbers</h2>
+
+<p>In this part of the lab, we created a file <code>rpn.py</code> containing given code to push integers into our stack. We then created another file <code>test_rpn.py</code> that imported the <code>process</code> definition from rpn and tested the <code>push</code> functionality. We also used this time to practice with producing test coverage reports by running pytest&ndash;3 with <code>--cov=rpn</code>.</p>
+
+<h2 id="arithmetic">Arithmetic</h2>
+
+<p>Using an <code>if / elif / else</code> construction, we updated our implementation of <code>process</code> to pass tests for the required arithmetic operations (plus, minus, mult, div, and pow). In my case, I created a helper function <code>_arith</code> to handle the different operations whenever process is called with one of the arithmetic operations.</p>
+
+<div class="brush: py">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="k">def</span> <span class="nf">_arith</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">op</span> <span class="o">==</span> <span class="s2">"+"</span><span class="p">):</span>
+        <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="p">(</span><span class="n">op</span> <span class="o">==</span> <span class="s2">"-"</span><span class="p">):</span>
+        <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="p">(</span><span class="n">op</span> <span class="o">==</span> <span class="s2">"*"</span><span class="p">):</span>
+        <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="p">(</span><span class="n">op</span> <span class="o">==</span> <span class="s2">"/"</span><span class="p">):</span>
+        <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="o">//</span><span class="n">b</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="p">(</span><span class="n">op</span> <span class="o">==</span> <span class="s2">"^"</span><span class="p">):</span>
+        <span class="n">stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="o">**</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<h2 id="improving-robustness-of-the-tests">Improving robustness of the tests</h2>
+
+<p>In order to be able to make our tests indpenent, we added &ldquo;clear&rdquo; to our operations to reset the stack to empty with <code>stack.clear()</code>. We chose to clear the stack at the beginning of our tests as to not rely on other tests clearing it.</p>
+
+<h2 id="stack-manipulation">Stack manipulation</h2>
+
+<p>We extended our <code>process</code> implementation to pass tests for the remaining operations (dup, pop, swap, and print). We benefitted from Python&rsquo;s support of negative indexing for our implementation of <strong>dup</strong>. For my implementation of <strong>swap</strong>, I reused the <code>_arith</code> function to pop two values back in reverse order. Lastly, for our implementation of <strong>print</strong>, we chose to return the top element of the stack rather than working directly with stdout to aid in testing.</p>
+
+<h2 id="processing-lists-of-operations">Processing Lists of Operations</h2>
+
+<p>In the last section of the lab, we completed the definition of <code>process_list</code> that takes a list of operations and returns a list of numbers depending on the prints from input. By this point, we fulfilled the input and output requirements for the postfix calculator.</p>
+
+<div class="brush: py">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="k">def</span> <span class="nf">process_list</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">line</span> <span class="o">==</span> <span class="s2">"quit"</span><span class="p">):</span>
+            <span class="k">break</span>
+        <span class="n">retv</span> <span class="o">=</span> <span class="n">process</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">retv</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">retv</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">out</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+  <footer>
+    <a href='/2019/10/lab-15.html'>&hellip; more &hellip;</a>
+  </footer>
+</article>
+<article>
+  <header>
     <h2><a href='/2019/10/lab-14.html'>Lab 14</a></h2>
     <p class='date-and-tags'>
 <time datetime="2019-10-24" pubdate="true">2019-10-24</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
@@ -102,7 +203,7 @@
 
 <h2 id="first-example">First Example</h2>
 
-<p>In lab 14, we started looking at the Python programming language. The first excercise required us to download the file <code>humansize.py</code> and run it from the command line and in vscodium with the debugger. We also evaluated some expressions using the bottom prompt of the debugguer window in vscodium as well as by running <code>python3</code> in the terminal, which is the equivalent of evaluating expressions in the interactions area in DrRacket.</p>
+<p>In lab 14, we started looking at the Python programming language. The first excercise required us to download the file <code>humansize.py</code> and run it from terminal and in vscodium with the debugger. We also evaluated some expressions using the bottom prompt of the debugguer window in vscodium as well as by running <code>python3</code> in the terminal, which is the equivalent of evaluating expressions in the interactions area in DrRacket.</p>
 
 <h2 id="pytest">Pytest</h2>
 
@@ -110,9 +211,9 @@
 
 <h2 id="modules">Modules</h2>
 
-<p>Then, we went over modules in Python, for which we imported humansize in <code>client.py</code> to call its <code>approximate_size</code> function. We also learned that code from a module guarded by <code>if __name__ == '__main__'</code> does not run when importing the module.</p>
+<p>Then, we went over modules in Python, for which we defined a new function that calls the function <code>approximate_size</code> from the humansize module, but has a default of False for the parameter <code>a_kilobyte_is_1024_bytes</code>. We also learned that code guarded by <code>if __name__ == '__main__'</code> does not run when importing the module.</p>
 
-<p>Calling a function from the module looks like this:</p>
+<p>The new function looked like this:</p>
 
 <div class="brush: py">
  <table class="sourcetable">
@@ -122,25 +223,27 @@
      <div class="linenodiv">
       <pre>1
 2
-3</pre></div></td>
+3
+4</pre></div></td>
     <td class="code">
      <div class="source">
-      <pre><span></span><span class="kn">from</span> <span class="nn">humansize</span> <span class="kn">import</span> <span class="n">approximate_size</span>
+      <pre><span></span><span class="kn">import</span> <span class="nn">humansize</span>
 
-<span class="n">approximate_size</span><span class="p">(</span><span class="mi">4000</span><span class="p">,</span> <span class="n">a_kilobyte_is_1024_bytes</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">approximate_size</span><span class="p">(</span><span class="nb">bytes</span><span class="p">,</span> <span class="n">k_is_1024</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">humansize</span><span class="o">.</span><span class="n">approximate_size</span><span class="p">(</span><span class="nb">bytes</span><span class="p">,</span> <span class="n">a_kilobyte_is_1024_bytes</span> <span class="o">=</span> <span class="n">k_is_1024</span><span class="p">)</span>
 </pre></div>
 </td></tr></tbody></table>
 </div>
 
 <h2 id="more-testing-docstrings">More testing, docstrings</h2>
 
-<p>In this part of the lab, we created <code>test_client.py</code> and added tests to make sure that the new function has a docstring by accessing it like so: <code>approximate_size.__doc__</code> and that it makes sense.</p>
+<p>In this part of the lab, we created <code>test_client.py</code> and added tests to make sure that the new function made sense and had a docstring by accessing it like so: <code>approximate_size.__doc__</code>.</p>
 
 <h2 id="indentation">Indentation</h2>
 
-<p>Afterwards, we learned about Python&rsquo;s surprising use of indentation to define blocks by fixing the indentation in <code>fizzbuzz.py</code> and add the missing case for Fizz to solve the FizzBuzz problem.</p>
+<p>Afterwards, we learned about Python&rsquo;s surprising use of indentation to define blocks by fixing the indentation in <code>fizzbuzz.py</code> and adding the missing case for Fizz to the FizzBuzz solution.</p>
 
-<p>The corrected version of <code>fizzbuzz.py</code> looks like this:</p>
+<p>The corrected version of <code>fizzbuzz.py</code> looked like this:</p>
 
 <div class="brush: py">
  <table class="sourcetable">
@@ -1052,59 +1155,6 @@
 <p>Our last taks was to write a function <strong>collect-status</strong> to collect the status values from errors.json to be inserted into a hash table and viewed in the exlporer window. By implementing this function, we practiced some more using <code>map</code> and <code>hash-ref</code>. I found the data explorer tool useful, especially for debugging as it allows you to check if data has been properly read-in and stored. By the end of this lab, I can say that I have become more familiar to the the DrRacket IDE, which is a positive outcome.</p>
   <footer>
     <a href='/2019/09/lab-6.html'>&hellip; more &hellip;</a>
-  </footer>
-</article>
-<article>
-  <header>
-    <h2><a href='/2019/09/lab-5.html'>Lab 5</a></h2>
-    <p class='date-and-tags'>
-<time datetime="2019-09-19" pubdate="true">2019-09-19</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
-    <p class='authors'>By: <span class="authors"><a href="/tags/Author-Edgar-Cobos.html">Edgar Cobos</a></span></p>
-  </header>
-
-<h2 id="tail-recursion">Tail Recursion</h2>
-
-<p>For Part 1, the task was to use the debugger to run the code for the <strong>odds-evens</strong> function. The purpose of this function is to count the number of odd and even numbers in a list. As we observed the stack in the debugger, it became clear that the function was not tail recursive, which implies the results of the recursive calls are processed further before returning.</p>
-
-<p>Afterwards, we completed the function <strong>odds-evens2</strong>, whose call to helper removes the first item of the list with ever call. It also increments either the odds or the evens argument by one, which represents a common pattern of replacing mutation with recursion. In order to test the stack usage of the function, we again used the debugger, this time, observing that the stack for this tail recursive function never got as deep as the one for the first implementation. Additionally, we were able to conclude that tail recursion is much more effecient in terms of stack since the calls to the helper function don&rsquo;t remain in the stack for very long.</p>
-
-<h2 id="for-loops">For Loops</h2>
-
-<p>In the following section, we learned about one Racket library form that allows to accumulate values. This form is called for/fold and it acts as a for loop. We looked at the function <strong>odds-evens3</strong> that implemented this form by setting an accumulator with an initial value of 0 for both the evens and the odds count. This function would loop over each element of a given list and, depending on whether it&rsquo;s even or odd, it would add one to either count. Finally, we looked into time comparison between the three different odds-evens implementations, concluding that the tail recursive function was the fastest one.</p>
-
-<h2 id="racket-review">Racket Review</h2>
-
-<p>New functions:</p>
-
-<ul>
- <li>
-  <p><code>range</code></p></li>
- <li>
-  <p><code>time</code></p></li></ul>
-
-<p>New forms:</p>
-
-<ul>
- <li>
-  <p><code>for/fold</code></p></li>
- <li>
-  <p><code>for*</code></p></li>
- <li>
-  <p><code>for</code></p></li></ul>
-
-<p>New concepts</p>
-
-<ul>
- <li>
-  <p>tail recursion</p></li>
- <li>
-  <p>accumulator</p></li></ul>
-
-<h2 id="numerical-integration">Numerical Integration</h2>
-
-<p>In the last section of the lab, we practicing some more with tail recursion, and for loops and higher order functions by playing with derivative and integral calculation. Also, we explored unit tests even further, learning about the use of <code>check-=</code> for cases where there is a margin of error. This is a useful tool for when it comes to dealing with numbers with very high precision.</p>
-  <footer>
-    <a href='/2019/09/lab-5.html'>&hellip; more &hellip;</a>
   </footer>
 </article>
 <footer>
