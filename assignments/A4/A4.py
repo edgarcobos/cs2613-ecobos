@@ -69,3 +69,14 @@ def check_row(row, query):
         return check_row(row,left) and check_row(row,right)
     elif op == 'OR':
         return check_row(row,left) or check_row(row,right)
+
+def filter_table(table, query):
+    """Select certain rows of the table according to a query"""
+    lst = []
+    for row in table:
+        if row == table[0]:
+            lst.append(table[0])
+        else:
+            if check_row(row2dict(header_map(table[0]), row), query):
+                lst.append(row)
+    return lst
