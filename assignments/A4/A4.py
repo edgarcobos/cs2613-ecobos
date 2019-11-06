@@ -64,6 +64,11 @@ def check_row(row, query):
             right = int(right)
         except ValueError:
             pass
+        try:
+            left = float(left)
+            right = float(right)
+        except:
+            pass
         return compare(left, op, right)
     elif op == 'AND':
         return check_row(row,left) and check_row(row,right)

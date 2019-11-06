@@ -12,6 +12,11 @@ def test_header_map_1():
     hmap = header_map(table[0])
     assert hmap == { 'name': 0, 'age': 1, 'eye colour': 2 }
 
+def test_header_map_2():
+    """Header_map with row"""
+    hmap = header_map(table[1])
+    assert hmap == { 'Bob': 0, '5': 1, 'blue': 2 }
+
 def test_select_1():
     assert select(table,{'name','eye colour'}) == [['name', 'eye colour'],
                                                    ['Bob',  'blue'],
@@ -42,6 +47,11 @@ def test_check_row_2():
     hmap = header_map(table[0])
     row = row2dict(hmap, table[0])
     assert check_row(row, ('eye colour', '==', 'eye colour'))
+
+def test_check_row_logical():
+    row = {'name': 'Bob', 'age': '5', 'eye colour': 'blue'}
+    assert check_row(row, (('age', '==', 5),'OR',('eye colour', '==', 5)))
+    assert not check_row(row, (('age', '==', 5),'AND',('eye colour', '==', 5)))
 
 def test_filter_table1():
     assert filter_table(table,('age', '>=', 0)) == [['name', 'age', 'eye colour'],

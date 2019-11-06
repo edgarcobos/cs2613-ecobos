@@ -1,0 +1,100 @@
+INSTNM,CITY,STABBR,ZIP,ADM_RATE,ADM_RATE_ALL,SAT_AVG,SAT_AVG_ALL
+Alabama A & M University,Normal,AL,35762,0.8989,0.8989,823,823
+University of Alabama at Birmingham,Birmingham,AL,35294-0110,0.8673,0.8673,1146,1146
+Amridge University,Montgomery,AL,36117-3553,NULL,NULL,NULL,NULL
+University of Alabama in Huntsville,Huntsville,AL,35899,0.8062,0.8062,1180,1180
+Alabama State University,Montgomery,AL,36104-0271,0.5125,0.5125,830,830
+The University of Alabama,Tuscaloosa,AL,35487-0166,0.5655,0.5655,1171,1171
+Central Alabama Community College,Alexander City,AL,35010,NULL,NULL,NULL,NULL
+Athens State University,Athens,AL,35611,NULL,NULL,NULL,NULL
+Auburn University at Montgomery,Montgomery,AL,36117-3596,0.8371,0.8371,970,970
+Auburn University,Auburn,AL,36849,0.8274,0.8274,1215,1215
+Birmingham Southern College,Birmingham,AL,35254,0.6422,0.6422,1177,1177
+Chattahoochee Valley Community College,Phenix City,AL,36869,NULL,NULL,NULL,NULL
+Concordia College Alabama,Selma,AL,36701,NULL,NULL,NULL,NULL
+South University-Montgomery,Montgomery,AL,36116,0.4366,0.4829,NULL,NULL
+Enterprise State Community College,Enterprise,AL,36330-1300,NULL,NULL,NULL,NULL
+James H Faulkner State Community College,Bay Minette,AL,36507-2698,NULL,NULL,NULL,NULL
+Faulkner University,Montgomery,AL,36109-3390,NULL,NULL,NULL,NULL
+Gadsden State Community College,Gadsden,AL,35903,NULL,NULL,NULL,NULL
+New Beginning College of Cosmetology,Albertville,AL,35951,NULL,NULL,NULL,NULL
+George C Wallace State Community College-Dothan,Dothan,AL,36303-9234,NULL,NULL,NULL,NULL
+George C Wallace State Community College-Hanceville,Hanceville,AL,35077-2000,NULL,NULL,NULL,NULL
+George C Wallace State Community College-Selma,Selma,AL,36703-2808,NULL,NULL,NULL,NULL
+Herzing University-Birmingham,Birmingham,AL,35209,0.7234,0.749,NULL,NULL
+Huntingdon College,Montgomery,AL,36106-2148,0.6279,0.6279,999,999
+Heritage Christian University,Florence,AL,35630-9977,NULL,NULL,NULL,NULL
+J F Drake State Community and Technical College,Huntsville,AL,35811,NULL,NULL,NULL,NULL
+Jacksonville State University,Jacksonville,AL,36265,0.8326,0.8326,1036,1036
+Jefferson Davis Community College,Brewton,AL,36426,NULL,NULL,NULL,NULL
+Jefferson State Community College,Birmingham,AL,35215-3098,NULL,NULL,NULL,NULL
+John C Calhoun State Community College,Tanner,AL,35671,NULL,NULL,NULL,NULL
+Judson College,Marion,AL,36756,0.7388,0.7388,1023,1023
+Lawson State Community College-Birmingham Campus,Birmingham,AL,35221-1717,NULL,NULL,NULL,NULL
+University of West Alabama,Livingston,AL,35470,0.9957,0.9957,950,950
+Lurleen B Wallace Community College,Andalusia,AL,36420-1418,NULL,NULL,NULL,NULL
+Marion Military Institute,Marion,AL,36756-3207,0.6034,0.6034,1040,1040
+Miles College,Fairfield,AL,35064-2621,NULL,NULL,NULL,NULL
+University of Mobile,Mobile,AL,36613-2842,0.7125,0.7125,1058,1058
+University of Montevallo,Montevallo,AL,35115-6000,0.8729,0.8729,1070,1070
+Northwest-Shoals Community College,Muscle Shoals,AL,35661,NULL,NULL,NULL,NULL
+University of North Alabama,Florence,AL,35632-0001,0.8092,0.8092,1028,1028
+Northeast Alabama Community College,Rainsville,AL,35986,NULL,NULL,NULL,NULL
+Oakwood University,Huntsville,AL,35896,0.3435,0.3435,924,924
+Alabama Southern Community College,Monroeville,AL,36460,NULL,NULL,NULL,NULL
+Prince Institute-Southeast,Elmhurst,IL,60126,NULL,NULL,NULL,NULL
+Reid State Technical College,Evergreen,AL,36401,NULL,NULL,NULL,NULL
+Bishop State Community College,Mobile,AL,36603-5898,NULL,NULL,NULL,NULL
+Samford University,Birmingham,AL,35229-2240,0.7697,0.7697,1153,1153
+Selma University,Selma,AL,36701,NULL,NULL,NULL,NULL
+Shelton State Community College,Tuscaloosa,AL,35405-8522,NULL,NULL,NULL,NULL
+Snead State Community College,Boaz,AL,35957-0734,NULL,NULL,NULL,NULL
+University of South Alabama,Mobile,AL,36688-0002,0.8604,0.8604,1064,1064
+Spring Hill College,Mobile,AL,36608-1791,0.4627,0.4627,1100,1100
+Southeastern Bible College,Birmingham,AL,35244-2083,0.9615,0.9615,970,970
+Stillman College,Tuscaloosa,AL,35401,0.43,0.43,882,882
+Talladega College,Talladega,AL,35160,NULL,NULL,NULL,NULL
+H Councill Trenholm State Community College,Montgomery,AL,36108-3199,NULL,NULL,NULL,NULL
+Troy University,Troy,AL,36082-0001,0.6821,0.6821,990,990
+Tuskegee University,Tuskegee,AL,36088-1920,0.3511,0.3511,937,937
+United States Sports Academy,Daphne,AL,36526-7055,NULL,NULL,NULL,NULL
+Bevill State Community College,Jasper,AL,35501,NULL,NULL,NULL,NULL
+University of Alaska Anchorage,Anchorage,AK,99508,NULL,NULL,NULL,NULL
+Alaska Bible College,Palmer,AK,99645,NULL,NULL,NULL,NULL
+University of Alaska Fairbanks,Fairbanks,AK,99775-7500,NULL,NULL,NULL,NULL
+University of Alaska Southeast,Juneau,AK,99801-8697,NULL,NULL,NULL,NULL
+Alaska Pacific University,Anchorage,AK,99508,0.3745,0.3745,1008,1008
+AVTEC-Alaska's Institute of Technology,Seward,AK,99664-0889,0.4888,0.4888,NULL,NULL
+Charter College,Vancouver,WA,98683-7575,NULL,NULL,NULL,NULL
+Prince William Sound Community College,Valdez,AK,99686-0097,NULL,NULL,NULL,NULL
+Alaska Career College,Anchorage,AK,99507-1033,NULL,NULL,NULL,NULL
+Everest College-Phoenix,Phoenix,AZ,85021-1641,NULL,NULL,NULL,NULL
+Collins College,Phoenix,AZ,85040,NULL,NULL,NULL,NULL
+Empire Beauty School-Paradise Valley,Phoenix,AZ,85032,NULL,NULL,NULL,NULL
+Empire Beauty School-Tucson,Tucson,AZ,85716,NULL,NULL,NULL,NULL
+Thunderbird School of Global Management,Glendale,AZ,85306-6000,NULL,NULL,NULL,NULL
+American Indian College Inc,Phoenix,AZ,85021,NULL,NULL,NULL,NULL
+American Institute of Trucking,Phoenix,AZ,85043-4729,NULL,NULL,NULL,NULL
+Carrington College-Phoenix North,Phoenix,AZ,85051-4063,1,1,NULL,NULL
+Carrington College-Mesa,Mesa,AZ,85210,1,1,NULL,NULL
+Carrington College-Tucson,Tucson,AZ,85745,1,1,NULL,NULL
+CollegeAmerica-Flagstaff,Flagstaff,AZ,86001,NULL,NULL,NULL,NULL
+Arizona Academy of Beauty-East,Tucson,AZ,85712,NULL,NULL,NULL,NULL
+Arizona Automotive Institute,Glendale,AZ,85301-3579,NULL,NULL,NULL,NULL
+Brookline College-Phoenix,Phoenix,AZ,85021,NULL,NULL,NULL,NULL
+Arizona State University-Tempe,Tempe,AZ,85287,0.8023,0.7626,1145,1108
+Arizona Western College,Yuma,AZ,85365-8834,NULL,NULL,NULL,NULL
+University of Arizona,Tucson,AZ,85721-0066,0.7692,0.7692,1106,1106
+Southwest University of Visual Arts-Tucson,Tucson,AZ,85716,NULL,NULL,NULL,NULL
+Brillare Hairdressing Academy,Scottsdale,AZ,85254,NULL,NULL,NULL,NULL
+Central Arizona College,Coolidge,AZ,85128-9030,NULL,NULL,NULL,NULL
+Brown Mackie College-Tucson,Tucson,AZ,85712,NULL,NULL,NULL,NULL
+Charles of Italy Beauty College,Lake Havasu City,AZ,86403,NULL,NULL,NULL,NULL
+Cochise County Community College District,Douglas,AZ,85607-6190,NULL,NULL,NULL,NULL
+Empire Beauty School-Flagstaff,Flagstaff,AZ,86004,NULL,NULL,NULL,NULL
+Empire Beauty School-Chandler,Chandler,AZ,85224,NULL,NULL,NULL,NULL
+Cortiva Institute-Tucson,Tucson,AZ,85710,NULL,NULL,NULL,NULL
+Avalon School of Cosmetology-Mesa,Mesa,AZ,85210,NULL,NULL,NULL,NULL
+Eastern Arizona College,Thatcher,AZ,85552-0769,NULL,NULL,NULL,NULL
+Embry-Riddle Aeronautical University-Prescott,Prescott,AZ,86301-3720,0.7898,0.7814,1171,1126
+Frank Lloyd Wright School of Architecture,Scottsdale,AZ,85259,NULL,NULL,NULL,NULL
