@@ -91,6 +91,31 @@
 
           <article>
   <header>
+    <h2><a href='/2019/09/lab-7.html'>Lab 7</a></h2>
+    <p class='date-and-tags'>
+<time datetime="2019-09-26" pubdate="true">2019-09-26</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
+    <p class='authors'>By: <span class="authors"><a href="/tags/Author-Edgar-Cobos.html">Edgar Cobos</a></span></p>
+  </header>
+
+<h2 id="macros">Macros</h2>
+
+<p>The first task of lab 7 was to define syntax rules for the boolean logic operations <strong>and</strong> and <strong>or</strong>. For this, we defined <strong>And</strong> so that it would make an evaluation between two arguments like the lower case version <strong>and</strong> would, except the short-circuit evaluation would be done from the right. We looked over a test submodule with <code>check-exn</code> that takes a <em>thunk</em> as an argument, or, as we learned, a function with zero paramters. In this case, lambda was used to delay evaluation in <code>check-exn</code> and it was pointed out that such boilerplate could be avoid with a syntax rule.</p>
+
+<p>Our next task was to define <strong>Or</strong> in a similar way to <strong>And</strong> and test it out. I found this short-circuit evaluation relatively easy to implement and I considered it a good review of <em>Discrete Structures</em> and operations using boolean logic.</p>
+
+<h2 id="pattern-matching">Pattern Matching</h2>
+
+<p>We learned a new useful feature of racket called <em>pattern matching</em> as used in <code>syntax-case</code> and function definitions using <code>match</code>, which specifies a pattern to match against the data. We looked over an implementation of the function <code>my-map</code> that used <code>match</code> and compared it to its original implementation that used <code>cond</code>, helping us understand the application of <code>match</code>. Additionaly, we used the &hellip; &ldquo;collector pattern&rdquo; as it is a common racket idiom. Then, we were instructed to implement let* in terms of let using a macro for which we had to complete the skeleton for the let-transformer module.</p>
+
+<h2 id="from-list-transformers-to-macros">From list transformers to macros</h2>
+
+<p>Finally, we used <code>syntax-case</code> in a similar way to how we used <code>match</code>, but this time to define the macro <strong>Let^</strong>. Using <code>syntax-case</code> eliminated the need to write a separate transformer. The patterns for this statement are analogous to match so our task only required to reverse engineer them.</p>
+  <footer>
+    <a href='/2019/09/lab-7.html'>&hellip; more &hellip;</a>
+  </footer>
+</article>
+<article>
+  <header>
     <h2><a href='/2019/09/lab-6.html'>Lab 6</a></h2>
     <p class='date-and-tags'>
 <time datetime="2019-09-24" pubdate="true">2019-09-24</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>

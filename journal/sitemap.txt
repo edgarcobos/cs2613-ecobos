@@ -4,6 +4,7 @@ http://www.example.com/2019/10/lab-10.html
 http://www.example.com/2019/09/lab-2.html
 http://www.example.com/2019/09/lab-3.html
 http://www.example.com/2019/10/lab-15.html
+http://www.example.com/2019/11/lab-17.html
 http://www.example.com/2019/09/lab-5.html
 http://www.example.com/2019/10/lab-12.html
 http://www.example.com/2019/09/lab-7.html
