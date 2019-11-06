@@ -15,7 +15,7 @@ def strip_quotes(string):
             return search.group(1)
         else:
             return None
-"""
+
 def split_row_3(string):
     split_regex=re.compile(
         r'''^   # start
@@ -38,4 +38,3 @@ def split_row(string):
         return [ strip_quotes(col) for col in search ]
     else:
         return None
-"""
