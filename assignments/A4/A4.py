@@ -23,3 +23,13 @@ def select(table, dct):
     for row in table:
         lst.append([row[i] for i in vals])
     return lst
+
+def row2dict(hmap, row):
+    """Take the output from header_map and a row, return a dictionary representing that row"""
+    dct = {}
+    rmap = header_map(row)
+    for key in hmap:
+        for val in rmap:
+            if hmap[key] == rmap[val]:
+                dct[key] = val
+    return dct
