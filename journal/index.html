@@ -94,6 +94,97 @@
 
           <article>
   <header>
+    <h2><a href='/2019/10/lab-16.html'>Lab 16</a></h2>
+    <p class='date-and-tags'>
+<time datetime="2019-10-31" pubdate="true">2019-10-31</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
+    <p class='authors'>By: <span class="authors"><a href="/tags/Author-Edgar-Cobos.html">Edgar Cobos</a></span></p>
+  </header>
+
+<h2 id="globbing-and-list-comprehensions">Globbing and List comprehensions</h2>
+
+<p>At the beginning of lab 16, we learned about list comprehensions, which provide a compact way of mapping a list into another list by applying a function to each of the elements of the list. As an excercise we constructed an equivalent list comprehension to a given for loop and tested it through <code>pytest</code>. One way to look at list comprehensions is as a convenient syntax for <code>map</code>, which is a familiar concept from both Racket and JavaScript. Although Python also has <code>map</code> and <code>lambda</code>, they are considered less idiomatic than using list comprehensions.</p>
+
+<div class="brush: py">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2
+3</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="n">python_files_comp</span> <span class="o">=</span> <span class="p">[</span><span class="n">join</span><span class="p">(</span><span class="n">new_dir</span><span class="p">,</span><span class="nb">file</span><span class="p">)</span> <span class="k">for</span> <span class="nb">file</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"*.py"</span><span class="p">)]</span>
+
+<span class="n">python_files_map</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="nb">file</span><span class="p">:</span> <span class="n">join</span><span class="p">(</span><span class="n">new_dir</span><span class="p">,</span><span class="nb">file</span><span class="p">),</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"*.py"</span><span class="p">))</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<h2 id="dictionary-comprehensions">Dictionary Comprehensions</h2>
+
+<p>Next, we learned about dictionary comprehensions, which are similar to list comprehensions, except that they use key-value format. As an exercise, we created a function <code>list2dict</code> to transform a list into a dictionary indexed by integers using a dictionary comprehension. Personally, I found this function easier to implement in python than the list-&gt;hash function in racket. The function was tested through <code>pytest</code> and used the python builtin range like so:</p>
+
+<div class="brush: py">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="k">def</span> <span class="nf">list2dict</span><span class="p">(</span><span class="n">lst</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span> <span class="n">lst</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">))}</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<h2 id="filtered-list-comprehensions">Filtered List Comprehensions</h2>
+
+<p>Then, we practiced filtering a list of values using list comprehension and an if clause. In this case, our task was to re-implement the function <code>drop-divisible</code> we had wrote in racket. We also looked at the implementation of <code>sieve-with</code>, which updated the list on every iteration, something that could be done without mutation in Racket by tail recursion or for/foldl.</p>
+
+<div class="brush: py">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="k">def</span> <span class="nf">drop_divisible</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">lst</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">elem</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">lst</span> <span class="k">if</span> <span class="n">elem</span> <span class="o">==</span> <span class="n">n</span> <span class="ow">or</span> <span class="n">elem</span> <span class="o">%</span> <span class="n">n</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<h2 id="using-format">Using <code>format</code></h2>
+
+<p>In the last part of the lab, we looked at the different ways of constructing output. The simple way is by using the overloaded operator <code>+</code> while a more powerful way to combine values into a formatted output string is through the <code>format</code> method. We practiced writing a string equivalent to one produced using <code>+</code> by using <code>format</code> like so:</p>
+
+<div class="brush: py">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="n">strings_format</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"{}</span><span class="se">\t</span><span class="s2">{:d}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">file</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span><span class="o">.</span><span class="n">st_size</span><span class="p">)</span> <span class="k">for</span> <span class="nb">file</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"*.py"</span><span class="p">)]</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+  <footer>
+    <a href='/2019/10/lab-16.html'>&hellip; more &hellip;</a>
+  </footer>
+</article>
+<article>
+  <header>
     <h2><a href='/2019/10/lab-15.html'>Lab 15</a></h2>
     <p class='date-and-tags'>
 <time datetime="2019-10-29" pubdate="true">2019-10-29</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
@@ -1129,32 +1220,6 @@
 <p>Finally, we used <code>syntax-case</code> in a similar way to how we used <code>match</code>, but this time to define the macro <strong>Let^</strong>. Using <code>syntax-case</code> eliminated the need to write a separate transformer. The patterns for this statement are analogous to match so our task only required to reverse engineer them.</p>
   <footer>
     <a href='/2019/09/lab-7.html'>&hellip; more &hellip;</a>
-  </footer>
-</article>
-<article>
-  <header>
-    <h2><a href='/2019/09/lab-6.html'>Lab 6</a></h2>
-    <p class='date-and-tags'>
-<time datetime="2019-09-24" pubdate="true">2019-09-24</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
-    <p class='authors'>By: <span class="authors"><a href="/tags/Author-Edgar-Cobos.html">Edgar Cobos</a></span></p>
-  </header>
-
-<h2 id="hash-tables">Hash tables</h2>
-
-<p>During lab 6, we learned about hash tables, which are similar to lists, but have an additional feature: fast key base retrieval of information. We learned that the function <code>hash</code> creates immutable hash tables, whose values can be retrieved through the <code>hash-ref</code> function. In addition to these two functions, there is one more function, <code>hash-set</code>, that will update the hash table pretty fast as we learned by looking at the ht2 function. We practiced using this last function to count the times a given element occurs in a list and learned about <code>car</code>, which is like <code>first</code>, but works for both lists and pairs.</p>
-
-<ul>
- <li>Personally, I was already somehow familiar with the concept of hash tables from learning Swift that has a similar data structure called Enums.</li></ul>
-
-<h2 id="plotting">Plotting</h2>
-
-<p>Next, in order to play some more with the code from the calculus.rkt file from the previous lab, we added a provide statement to provide the definitions of 2pi, &ndash;2pi, and deriv. Then, we were able to compile and run the code from <strong>plot-example.rkt</strong>, which used the plot function to graph the functions resulting from the calculations in <strong>calculus.rkt</strong>. We also added a second call to plot to plot the difference between <code>(deriv sin x)</code> and <code>(cos x)</code>, finding out that we can modify the precision of our plot. I found this racket function very interesting as it allows you to plot different mathematical functions.</p>
-
-<h2 id="json">JSON</h2>
-
-<p>Our last taks was to write a function <strong>collect-status</strong> to collect the status values from errors.json to be inserted into a hash table and viewed in the exlporer window. By implementing this function, we practiced some more using <code>map</code> and <code>hash-ref</code>. I found the data explorer tool useful, especially for debugging as it allows you to check if data has been properly read-in and stored. By the end of this lab, I can say that I have become more familiar to the the DrRacket IDE, which is a positive outcome.</p>
-  <footer>
-    <a href='/2019/09/lab-6.html'>&hellip; more &hellip;</a>
   </footer>
 </article>
 <footer>

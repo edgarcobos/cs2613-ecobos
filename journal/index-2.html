@@ -91,6 +91,32 @@
 
           <article>
   <header>
+    <h2><a href='/2019/09/lab-6.html'>Lab 6</a></h2>
+    <p class='date-and-tags'>
+<time datetime="2019-09-24" pubdate="true">2019-09-24</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
+    <p class='authors'>By: <span class="authors"><a href="/tags/Author-Edgar-Cobos.html">Edgar Cobos</a></span></p>
+  </header>
+
+<h2 id="hash-tables">Hash tables</h2>
+
+<p>During lab 6, we learned about hash tables, which are similar to lists, but have an additional feature: fast key base retrieval of information. We learned that the function <code>hash</code> creates immutable hash tables, whose values can be retrieved through the <code>hash-ref</code> function. In addition to these two functions, there is one more function, <code>hash-set</code>, that will update the hash table pretty fast as we learned by looking at the ht2 function. We practiced using this last function to count the times a given element occurs in a list and learned about <code>car</code>, which is like <code>first</code>, but works for both lists and pairs.</p>
+
+<ul>
+ <li>Personally, I was already somehow familiar with the concept of hash tables from learning Swift that has a similar data structure called Enums.</li></ul>
+
+<h2 id="plotting">Plotting</h2>
+
+<p>Next, in order to play some more with the code from the calculus.rkt file from the previous lab, we added a provide statement to provide the definitions of 2pi, &ndash;2pi, and deriv. Then, we were able to compile and run the code from <strong>plot-example.rkt</strong>, which used the plot function to graph the functions resulting from the calculations in <strong>calculus.rkt</strong>. We also added a second call to plot to plot the difference between <code>(deriv sin x)</code> and <code>(cos x)</code>, finding out that we can modify the precision of our plot. I found this racket function very interesting as it allows you to plot different mathematical functions.</p>
+
+<h2 id="json">JSON</h2>
+
+<p>Our last taks was to write a function <strong>collect-status</strong> to collect the status values from errors.json to be inserted into a hash table and viewed in the exlporer window. By implementing this function, we practiced some more using <code>map</code> and <code>hash-ref</code>. I found the data explorer tool useful, especially for debugging as it allows you to check if data has been properly read-in and stored. By the end of this lab, I can say that I have become more familiar to the the DrRacket IDE, which is a positive outcome.</p>
+  <footer>
+    <a href='/2019/09/lab-6.html'>&hellip; more &hellip;</a>
+  </footer>
+</article>
+<article>
+  <header>
     <h2><a href='/2019/09/lab-5.html'>Lab 5</a></h2>
     <p class='date-and-tags'>
 <time datetime="2019-09-19" pubdate="true">2019-09-19</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
