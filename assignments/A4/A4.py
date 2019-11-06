@@ -33,3 +33,39 @@ def row2dict(hmap, row):
             if hmap[key] == rmap[val]:
                 dct[key] = val
     return dct
+
+def compare(left, op, right):
+    """Helper function to make comparisons between left and right"""
+    if op == '==':
+        return left == right
+    elif op == '<=':
+        if left == 'NULL' or right == 'NULL':
+            return left == 'NULL' and right == 'NULL'
+        return left <= right
+    elif op == '>=':
+        if left == 'NULL' or right == 'NULL':
+            return left == 'NULL' and right == 'NULL'
+        return left >= right
+
+def check_row(row, query):
+    """Check if a row matches a query tuple"""
+    left = query[0]
+    op = query[1]
+    right = query[2]
+    if left in row:
+        left = row[left]
+    if right in row:
+        right = row[right]
+    if op in ['==', '<=', '>=']:
+        left = str(left)
+        right = str(right)
+        try:
+            left = int(left)
+            right = int(right)
+        except ValueError:
+            pass
+        return compare(left, op, right)
+    elif op == 'AND':
+        return check_row(row,left) and check_row(row,right)
+    elif op == 'OR':
+        return check_row(row,left) or check_row(row,right)
