@@ -26,25 +26,30 @@ def select(table, dct):
 
 def row2dict(hmap, row):
     """Take the output from header_map and a row, return a dictionary representing that row"""
-    dct = {}
-    rmap = header_map(row)
-    for key in hmap:
-        for val in rmap:
-            if hmap[key] == rmap[val]:
-                dct[key] = val
-    return dct
+    keys = [key for key in hmap.keys()]
+    return {keys[i]: row[i] for i in range(len(row))}
 
 def compare(left, op, right):
     """Helper function to make comparisons between left and right"""
+    try:
+        _ = int(left) + int(right)
+        left = int(left)
+        right = int(right)
+    except ValueError:
+        pass
+    try:
+        _ = float(left) + float(right)
+        left = float(left)
+        right = float(right)
+    except ValueError:
+        pass
     if op == '==':
         return left == right
+    elif left == 'NULL' or right == 'NULL':
+        return left == 'NULL' and right == 'NULL'
     elif op == '<=':
-        if left == 'NULL' or right == 'NULL':
-            return left == 'NULL' and right == 'NULL'
         return left <= right
     elif op == '>=':
-        if left == 'NULL' or right == 'NULL':
-            return left == 'NULL' and right == 'NULL'
         return left >= right
 
 def check_row(row, query):
@@ -57,18 +62,6 @@ def check_row(row, query):
     if right in row:
         right = row[right]
     if op in ['==', '<=', '>=']:
-        left = str(left)
-        right = str(right)
-        try:
-            left = int(left)
-            right = int(right)
-        except ValueError:
-            pass
-        try:
-            left = float(left)
-            right = float(right)
-        except:
-            pass
         return compare(left, op, right)
     elif op == 'AND':
         return check_row(row,left) and check_row(row,right)
