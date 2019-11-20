@@ -91,6 +91,143 @@
 
           <article>
   <header>
+    <h2><a href='/2019/10/lab-9.html'>Lab 9</a></h2>
+    <p class='date-and-tags'>
+<time datetime="2019-10-03" pubdate="true">2019-10-03</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
+    <p class='authors'>By: <span class="authors"><a href="/tags/Author-Edgar-Cobos.html">Edgar Cobos</a></span></p>
+  </header>
+
+<h2 id="javascript-equallity-and-type-coercion">JavaScript equallity and type coercion</h2>
+
+<p>At the beginning of lab 9, we learned about equality and type coercion in JavaScript. We tried out the standard equality test <code>==</code>, which converts the operands if they are not of the same type before applying strict comparison. I also read that, if both operands are objects, then JavaScript compares internal references wich are equal when operands refer to the same object in memory. In addition, we tried out the &ldquo;strict equality&rdquo; checker <code>===</code>, which returns true if the operands are strictly equal with no type conversion. In order to avoid the twisty maze of &ldquo;helpful&rdquo; type coercion, it is suggested to use the strict equality checker.</p>
+
+<h2 id="javascript-functions">JavaScript functions</h2>
+
+<p>Next, we went over the two ways of defining functions in JavaScript:</p>
+
+<ol>
+ <li>By assigning an anonymous function to a variable</li>
+ <li>Through the binding and creation of a function</li></ol>
+
+<div class="brush: js">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2
+3
+4
+5
+6</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="c1">//1</span>
+<span class="kd">let</span> <span class="nx">square</span> <span class="o">=</span> <span class="nx">x</span> <span class="p">=&gt;</span> <span class="nx">x</span><span class="o">*</span><span class="nx">x</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">square2</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="nx">x</span><span class="o">*</span><span class="nx">x</span><span class="p">};</span>
+
+<span class="c1">//2</span>
+<span class="kd">function</span> <span class="nx">square</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span><span class="o">*</span><span class="nx">x</span> <span class="p">};</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<p>Answers from part 3:</p>
+
+<ul>
+ <li><code>Assignment (=) in Racket is different from binding (let, define) because assignment changes a value whereas binding creates an immutable variable.</code></li>
+ <li>`<code>return</code> is mandatory in order to tell our program when a function has end and what value to return as opposed to racket.`</li>
+ <li><code>arrow function vs regular function</code>
+  <ul>
+   <li><code>arrow functions do not have their own this</code></li>
+   <li><code>arrow functions are onlly cannot be constructed using the new keyword</code></li>
+   <li><code>argument objects are not available in arrow functions</code></li></ul></li></ul>
+
+<p>Lastly, we looked over the recursive function <strong>plus</strong> and implemented <strong>mult</strong> based on it.</p>
+
+<div class="brush: js">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="c1">//loop-arith.js</span>
+<span class="kd">function</span> <span class="nx">mult</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">a</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">sum</span> <span class="o">=</span> <span class="nx">plus</span><span class="p">(</span><span class="nx">sum</span><span class="p">,</span> <span class="nx">b</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">sum</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<h2 id="nodejs-modules">Node.js modules</h2>
+
+<p>In this part, we took our functions from the previous excercise and exported them like so: <code>exports.plus = plus;</code>. In a new file <code>client.js</code> we required and used them like so: <code>let arith=require("./loop-arith.js"); console.log(arith.plus(2,2));</code>.</p>
+
+<h2 id="jasmine">Jasmine</h2>
+
+<p>Then, we learned about a popular unit testing framework for JavaScript called Jasmine. We made a test submodule that required the code from loop-arith and filled in the missing pieces from <strong>loop-arith.spec.js</strong> to make a passing test suite. In order to get test coverage information, we ran jasmine via another tool called nyc like so: <code>nyc jasmine</code>.</p>
+
+<h2 id="recursion-in-javascript">Recursion in JavaScript</h2>
+
+<p>Finally, we filled in the recursive defintion of <strong>mult</strong> for <strong>loop-arith2.js</strong> using <strong>plus</strong> based on the racket solution. We, then, made two test suites, one to test <strong>loop-arith2.js</strong> and another one to test <strong>loop-arith.js</strong> against <strong>loop-arith2.js</strong>.</p>
+  <footer>
+    <a href='/2019/10/lab-9.html'>&hellip; more &hellip;</a>
+  </footer>
+</article>
+<article>
+  <header>
+    <h2><a href='/2019/10/lab-8.html'>Lab 8</a></h2>
+    <p class='date-and-tags'>
+<time datetime="2019-10-01" pubdate="true">2019-10-01</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
+    <p class='authors'>By: <span class="authors"><a href="/tags/Author-Edgar-Cobos.html">Edgar Cobos</a></span></p>
+  </header>
+
+<h2 id="running-javascript">Running JavaScript</h2>
+
+<p>At the start of lab 7 we created a new file, added some JavaScripct code, started debugging, and commmited, all in VSCodium.</p>
+
+<h2 id="translating-racket-expressions-into-javascript">Translating Racket expressions into Javascript</h2>
+
+<p>Since our focus was to transition from Racket into Javascript, our first task involved filling in the JavaScript expressions equivalent to Racket expressions that were given to us. This expressions can be found in the file expr.js and they involve Racket procedures such as <code>string-append</code> and <code>equal?</code>.</p>
+
+<h2 id="looping">Looping</h2>
+
+<p>Our next two tasks involved loops, more specifically, for loops. The first one was to write a loop to generate the following output:</p>
+
+<p><code>#</code>
+ <br /><code>##</code>
+ <br /><code>###</code>
+ <br /><code>####</code>
+ <br /><code>#####</code>
+ <br /><code>######</code>
+ <br /><code>#######</code></p>
+
+<p>My solution initially looped from 0 to 6, priting one <code>#</code> the first time and added one more <code>#</code> to be printed during the next iteration. However, after I followed along the talk by <em>Gary Bernhardt</em>, I decided to print Array(i).join ("#") and looped from 2 to 8. This solution was a bit shorter than the previous one and it allowed me to explore another feature of javascript.</p>
+
+<p>Afterwards, we discussed about three &ldquo;special numbers&rdquo; in JavaScript: NaN, Infinity, and -Infinity and looked for arithmetic expressions that yield these three special numbers. Additionally we talked about <code>undefined</code> and <code>null</code> variables.</p>
+
+<p>Lastly, we solved the famous <strong>FizzBuzz</strong> problem, which is essentially some nested ifs inside a for loop. I tried both the obvious solution and the tricky one hinted at in the text without encountering any difficulty.</p>
+  <footer>
+    <a href='/2019/10/lab-8.html'>&hellip; more &hellip;</a>
+  </footer>
+</article>
+<article>
+  <header>
     <h2><a href='/2019/09/lab-7.html'>Lab 7</a></h2>
     <p class='date-and-tags'>
 <time datetime="2019-09-26" pubdate="true">2019-09-26</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>

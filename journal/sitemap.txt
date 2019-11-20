@@ -8,11 +8,13 @@ http://www.example.com/2019/11/lab-17.html
 http://www.example.com/2019/09/lab-5.html
 http://www.example.com/2019/10/lab-12.html
 http://www.example.com/2019/09/lab-7.html
+http://www.example.com/2019/11/lab-19.html
 http://www.example.com/2019/09/lab-4.html
 http://www.example.com/2019/09/edgar-s-post.html
 http://www.example.com/2019/10/lab-11.html
 http://www.example.com/2019/09/lab-6.html
 http://www.example.com/2019/10/lab-16.html
+http://www.example.com/2019/11/lab-18.html
 http://www.example.com/2019/10/lab-9.html
 http://www.example.com/2019/10/lab-14.html
 http://www.example.com/About.html

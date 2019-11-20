@@ -94,6 +94,322 @@
 
           <article>
   <header>
+    <h2><a href='/2019/11/lab-19.html'>Lab 19</a></h2>
+    <p class='date-and-tags'>
+<time datetime="2019-11-20" pubdate="true">2019-11-20</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
+    <p class='authors'>By: <span class="authors"><a href="/tags/Author-Edgar-Cobos.html">Edgar Cobos</a></span></p>
+  </header>
+
+<h2 id="counters-generators-and-classes">Counters, generators, and classes</h2>
+
+<p>At the beginning of lab 19, we reviewed dunder methods in Python. We practiced implementing a <code>__next__</code> method which is called whenever an instance of the class is passed to the <code>next()</code> function. This is how our class ended up looking like:</p>
+
+<div class="brush: py">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="k">class</span> <span class="nc">Counter</span><span class="p">:</span>
+	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">):</span>
+	    <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+	    <span class="bp">self</span><span class="o">.</span><span class="n">first</span> <span class="o">=</span> <span class="n">x</span>
+
+	<span class="k">def</span> <span class="nf">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+	    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">first</span><span class="p">:</span>
+		<span class="k">print</span><span class="p">(</span><span class="s1">&#39;entering make_counter&#39;</span><span class="p">)</span>
+	    <span class="k">else</span><span class="p">:</span>
+		<span class="k">print</span><span class="p">(</span><span class="s1">&#39;incrementing x&#39;</span><span class="p">)</span>
+	    <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span>
+	    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<h2 id="fibonacci-again">Fibonacci, again</h2>
+
+<p>Next, we practice building an iterator class <code>Fib</code> by completing the definition of <code>__next__</code> basing our solution on the closure based version of fib from the previous lab. At this point, we where able to build a list by using an odd looking while loop, but not using some kind of list comprehension. This is due to the fact that our class is still not an iterator as we have not provided an <code>__iter__</code> method. This was fixed by adding the following to our class:</p>
+
+<div class="brush: py">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<p>However, this only signals to the Python runtime that some object is an iterator. The <code>__iter__</code> method should also serve to restart the traversal of our &ldquo;virtual list&rdquo;. The <code>__iter__</code> method ended up looking like so:</p>
+
+<div class="brush: py">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2
+3
+4</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="bp">self</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<h2 id="object-copying-and-equality">Object copying and equality</h2>
+
+<p>In this part of the lab, we created a class <code>Expr</code> with methods <code>__init__</code> and <code>__eq__</code>. The <code>__init__</code> method can be compared to the constructor method in Java as its purpose is to initialize the values of instance members for new objects. For the <code>__eq__</code> method, we used vars to check if two objects have the same attributes.</p>
+
+<div class="brush: py">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">op</span> <span class="o">=</span> <span class="n">op</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">left</span> <span class="o">=</span> <span class="n">left</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">right</span> <span class="o">=</span> <span class="n">right</span>
+
+<span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="vm">__class__</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">vars</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="nb">vars</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">NotImplemented</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<h2 id="arithmetic">Arithmetic</h2>
+
+<p>Lastly, we added an eval method to the <code>Expr</code> class using recursion to evaluate simple and compound arithmetic expressions.</p>
+
+<div class="brush: py">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="k">def</span> <span class="nf">eval</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+	<span class="k">def</span> <span class="nf">recur</span><span class="p">(</span><span class="n">branch</span><span class="p">):</span>
+	    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">branch</span><span class="p">,</span> <span class="n">Expr</span><span class="p">):</span>
+		<span class="k">return</span> <span class="n">branch</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+	    <span class="k">else</span><span class="p">:</span>
+		<span class="k">return</span> <span class="n">branch</span>
+
+	<span class="n">left</span> <span class="o">=</span> <span class="n">recur</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+	<span class="n">right</span> <span class="o">=</span> <span class="n">recur</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s1">&#39;+&#39;</span><span class="p">:</span>
+	    <span class="k">return</span> <span class="n">left</span> <span class="o">+</span> <span class="n">right</span>
+	<span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">op</span> <span class="o">==</span> <span class="s1">&#39;*&#39;</span><span class="p">:</span>
+	    <span class="k">return</span> <span class="n">left</span> <span class="o">*</span> <span class="n">right</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+  <footer>
+    <a href='/2019/11/lab-19.html'>&hellip; more &hellip;</a>
+  </footer>
+</article>
+<article>
+  <header>
+    <h2><a href='/2019/11/lab-18.html'>Lab 18</a></h2>
+    <p class='date-and-tags'>
+<time datetime="2019-11-07" pubdate="true">2019-11-07</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
+    <p class='authors'>By: <span class="authors"><a href="/tags/Author-Edgar-Cobos.html">Edgar Cobos</a></span></p>
+  </header>
+
+<h2 id="counter">Counter</h2>
+
+<p>At the beginning of lab 18, we learned about generators, which provide a way of delaying function evaluation, generally to preserve memory. The function <code>make_counter</code> is an example of a simple generator that acts as a counter, with the particularity that it returns one number at a time. The keyword <code>yield</code> tells the interpreter to return the count when <code>next(make_counter(x))</code> is called.</p>
+
+<div class="brush: py">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2
+3
+4
+5
+6</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="k">def</span> <span class="nf">make_counter</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;entering make counter&#39;</span><span class="p">)</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">x</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;incrementing x&#39;</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<p>Next, we looked at closures to better understand generators by implementing the function <code>make_counter2</code>. The keyword <code>nonlocal</code> tells the function to look up in scope and get a reference to the variable count as opposed to creating a new variable. This is crucial as it allows us to save the value of count because the inner function is reset everytime it is called.</p>
+
+<div class="brush: py">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="k">def</span> <span class="nf">make_counter2</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="n">x</span>
+    <span class="k">def</span> <span class="nf">counter</span><span class="p">():</span>
+        <span class="n">nonlocal</span> <span class="n">count</span>
+        <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="n">x</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;entering make_counter&#39;</span><span class="p">)</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">count</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">counter</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<h2 id="fibonacci">Fibonacci</h2>
+
+<p>After learning about generators and closures, we attempted to create a closure-generator to generate a Fibonacci sequence. This implementation was very similar to the previous function except that, instead of returning values indefinitely, we want to stop when a max value has been exceeded. This was accomplished by checking value of a and returning None when it exceeded the max.</p>
+
+<div class="brush: py">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="k">def</span> <span class="nf">fib2</span><span class="p">(</span><span class="nb">max</span><span class="p">):</span>
+    <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span>
+    <span class="k">def</span> <span class="nf">next</span><span class="p">():</span>
+        <span class="n">nonlocal</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span>
+        <span class="k">if</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="nb">max</span><span class="p">:</span>
+                <span class="n">tmp</span> <span class="o">=</span> <span class="n">a</span>
+                <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+                <span class="k">return</span> <span class="n">tmp</span>
+        <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">None</span>
+    <span class="k">return</span> <span class="nb">next</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<h2 id="sieve">Sieve</h2>
+
+<p>In this part of the lab, we looked at the implementation of sieve created in Lab 16. The goal this time was to take the list comprehension used in <code>drop_divisible</code> and replace it with a generator.</p>
+
+<div class="brush: py">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2
+3
+4</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="k">def</span> <span class="nf">drop_divisible</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">lst</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">lst</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">n</span> <span class="ow">or</span> <span class="n">x</span> <span class="o">%</span> <span class="n">n</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">x</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<h2 id="performance-comparison">Performance Comparison</h2>
+
+<p>Lastly, we compared the time usage by the list comprehension and generator implementations of <code>drop_divisible</code> from the previous part. The generator runs instantly, but this is because it only returns a generator object. In order to time the generator implementation appropiately we ran the returned the generated values through a list comprehension expression by using the returned generator. This test demonstrated that the generator implementation is 36% slower than the list comprehension implementation.</p>
+
+<pre><code>sieve=[2, 3, 5, 7]
+sievegen=&lt;generator object drop_divisible at 0x103087750&gt;
+0.96341959
+0.002185341999999979
+1.308970162</code></pre>
+  <footer>
+    <a href='/2019/11/lab-18.html'>&hellip; more &hellip;</a>
+  </footer>
+</article>
+<article>
+  <header>
     <h2><a href='/2019/11/lab-17.html'>Lab 17</a></h2>
     <p class='date-and-tags'>
 <time datetime="2019-11-05" pubdate="true">2019-11-05</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
@@ -1205,143 +1521,6 @@
 </div>
   <footer>
     <a href='/2019/10/lab-10.html'>&hellip; more &hellip;</a>
-  </footer>
-</article>
-<article>
-  <header>
-    <h2><a href='/2019/10/lab-9.html'>Lab 9</a></h2>
-    <p class='date-and-tags'>
-<time datetime="2019-10-03" pubdate="true">2019-10-03</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
-    <p class='authors'>By: <span class="authors"><a href="/tags/Author-Edgar-Cobos.html">Edgar Cobos</a></span></p>
-  </header>
-
-<h2 id="javascript-equallity-and-type-coercion">JavaScript equallity and type coercion</h2>
-
-<p>At the beginning of lab 9, we learned about equality and type coercion in JavaScript. We tried out the standard equality test <code>==</code>, which converts the operands if they are not of the same type before applying strict comparison. I also read that, if both operands are objects, then JavaScript compares internal references wich are equal when operands refer to the same object in memory. In addition, we tried out the &ldquo;strict equality&rdquo; checker <code>===</code>, which returns true if the operands are strictly equal with no type conversion. In order to avoid the twisty maze of &ldquo;helpful&rdquo; type coercion, it is suggested to use the strict equality checker.</p>
-
-<h2 id="javascript-functions">JavaScript functions</h2>
-
-<p>Next, we went over the two ways of defining functions in JavaScript:</p>
-
-<ol>
- <li>By assigning an anonymous function to a variable</li>
- <li>Through the binding and creation of a function</li></ol>
-
-<div class="brush: js">
- <table class="sourcetable">
-  <tbody>
-   <tr>
-    <td class="linenos">
-     <div class="linenodiv">
-      <pre>1
-2
-3
-4
-5
-6</pre></div></td>
-    <td class="code">
-     <div class="source">
-      <pre><span></span><span class="c1">//1</span>
-<span class="kd">let</span> <span class="nx">square</span> <span class="o">=</span> <span class="nx">x</span> <span class="p">=&gt;</span> <span class="nx">x</span><span class="o">*</span><span class="nx">x</span><span class="p">;</span>
-<span class="kd">let</span> <span class="nx">square2</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="nx">x</span><span class="o">*</span><span class="nx">x</span><span class="p">};</span>
-
-<span class="c1">//2</span>
-<span class="kd">function</span> <span class="nx">square</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span><span class="o">*</span><span class="nx">x</span> <span class="p">};</span>
-</pre></div>
-</td></tr></tbody></table>
-</div>
-
-<p>Answers from part 3:</p>
-
-<ul>
- <li><code>Assignment (=) in Racket is different from binding (let, define) because assignment changes a value whereas binding creates an immutable variable.</code></li>
- <li>`<code>return</code> is mandatory in order to tell our program when a function has end and what value to return as opposed to racket.`</li>
- <li><code>arrow function vs regular function</code>
-  <ul>
-   <li><code>arrow functions do not have their own this</code></li>
-   <li><code>arrow functions are onlly cannot be constructed using the new keyword</code></li>
-   <li><code>argument objects are not available in arrow functions</code></li></ul></li></ul>
-
-<p>Lastly, we looked over the recursive function <strong>plus</strong> and implemented <strong>mult</strong> based on it.</p>
-
-<div class="brush: js">
- <table class="sourcetable">
-  <tbody>
-   <tr>
-    <td class="linenos">
-     <div class="linenodiv">
-      <pre>1
-2
-3
-4
-5
-6
-7
-8</pre></div></td>
-    <td class="code">
-     <div class="source">
-      <pre><span></span><span class="c1">//loop-arith.js</span>
-<span class="kd">function</span> <span class="nx">mult</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">a</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">sum</span> <span class="o">=</span> <span class="nx">plus</span><span class="p">(</span><span class="nx">sum</span><span class="p">,</span> <span class="nx">b</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">sum</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</td></tr></tbody></table>
-</div>
-
-<h2 id="nodejs-modules">Node.js modules</h2>
-
-<p>In this part, we took our functions from the previous excercise and exported them like so: <code>exports.plus = plus;</code>. In a new file <code>client.js</code> we required and used them like so: <code>let arith=require("./loop-arith.js"); console.log(arith.plus(2,2));</code>.</p>
-
-<h2 id="jasmine">Jasmine</h2>
-
-<p>Then, we learned about a popular unit testing framework for JavaScript called Jasmine. We made a test submodule that required the code from loop-arith and filled in the missing pieces from <strong>loop-arith.spec.js</strong> to make a passing test suite. In order to get test coverage information, we ran jasmine via another tool called nyc like so: <code>nyc jasmine</code>.</p>
-
-<h2 id="recursion-in-javascript">Recursion in JavaScript</h2>
-
-<p>Finally, we filled in the recursive defintion of <strong>mult</strong> for <strong>loop-arith2.js</strong> using <strong>plus</strong> based on the racket solution. We, then, made two test suites, one to test <strong>loop-arith2.js</strong> and another one to test <strong>loop-arith.js</strong> against <strong>loop-arith2.js</strong>.</p>
-  <footer>
-    <a href='/2019/10/lab-9.html'>&hellip; more &hellip;</a>
-  </footer>
-</article>
-<article>
-  <header>
-    <h2><a href='/2019/10/lab-8.html'>Lab 8</a></h2>
-    <p class='date-and-tags'>
-<time datetime="2019-10-01" pubdate="true">2019-10-01</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
-    <p class='authors'>By: <span class="authors"><a href="/tags/Author-Edgar-Cobos.html">Edgar Cobos</a></span></p>
-  </header>
-
-<h2 id="running-javascript">Running JavaScript</h2>
-
-<p>At the start of lab 7 we created a new file, added some JavaScripct code, started debugging, and commmited, all in VSCodium.</p>
-
-<h2 id="translating-racket-expressions-into-javascript">Translating Racket expressions into Javascript</h2>
-
-<p>Since our focus was to transition from Racket into Javascript, our first task involved filling in the JavaScript expressions equivalent to Racket expressions that were given to us. This expressions can be found in the file expr.js and they involve Racket procedures such as <code>string-append</code> and <code>equal?</code>.</p>
-
-<h2 id="looping">Looping</h2>
-
-<p>Our next two tasks involved loops, more specifically, for loops. The first one was to write a loop to generate the following output:</p>
-
-<p><code>#</code>
- <br /><code>##</code>
- <br /><code>###</code>
- <br /><code>####</code>
- <br /><code>#####</code>
- <br /><code>######</code>
- <br /><code>#######</code></p>
-
-<p>My solution initially looped from 0 to 6, priting one <code>#</code> the first time and added one more <code>#</code> to be printed during the next iteration. However, after I followed along the talk by <em>Gary Bernhardt</em>, I decided to print Array(i).join ("#") and looped from 2 to 8. This solution was a bit shorter than the previous one and it allowed me to explore another feature of javascript.</p>
-
-<p>Afterwards, we discussed about three &ldquo;special numbers&rdquo; in JavaScript: NaN, Infinity, and -Infinity and looked for arithmetic expressions that yield these three special numbers. Additionally we talked about <code>undefined</code> and <code>null</code> variables.</p>
-
-<p>Lastly, we solved the famous <strong>FizzBuzz</strong> problem, which is essentially some nested ifs inside a for loop. I tried both the obvious solution and the tricky one hinted at in the text without encountering any difficulty.</p>
-  <footer>
-    <a href='/2019/10/lab-8.html'>&hellip; more &hellip;</a>
   </footer>
 </article>
 <footer>
