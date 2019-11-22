@@ -1,4 +1,5 @@
-from A5 import Type, Token
+from A5 import Type, Token, Scanner
+import pytest
 
 def test_enum():
     '''check that defined enum type matches assignment'''
@@ -32,3 +33,32 @@ def test_equal_currency():
 def test_equal_bad():
     '''test for class mismatch'''
     assert Token(Type.CURRENCY,1000) != '[Type.CURRENCY, 10.00]'
+
+def test_scan_keywords():
+    scanner=Scanner('''TrAnsFer transfer 
+                       OPEN BALANCE balance''')
+    toks = [Token(Type.TRANSFER,"TrAnsFer"), Token(Type.TRANSFER,"transfer"),
+            Token(Type.OPEN,"OPEN"),
+            Token(Type.BALANCE,"BALANCE"),  Token(Type.BALANCE,"balance")]
+
+    assert [tok for tok in scanner] == toks
+    # iterate a second time
+    assert [tok for tok in scanner] == toks
+
+def test_scan_identifiers():
+    scanner=Scanner("equity cash end_of_the_world_fund")
+    assert list(scanner) == [Token(Type.IDENT,"equity"),
+                                        Token(Type.IDENT,"cash"),
+                                        Token(Type.IDENT,"end_of_the_world_fund")]
+
+def test_scan_currency():
+    scanner=Scanner("100 100.00 100.42 -123.45")
+    assert list(scanner) == [Token(Type.CURRENCY,10000),
+                             Token(Type.CURRENCY,10000),
+                             Token(Type.CURRENCY,10042),
+                             Token(Type.CURRENCY,-12345)]
+
+def test_scan_bad():
+    scanner=Scanner("&crash")
+    with pytest.raises(ValueError, match="&crash"):
+        next(scanner)

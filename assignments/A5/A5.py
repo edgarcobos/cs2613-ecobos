@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 from enum import Enum
+import re
 
 class Type(Enum):
     BALANCE = 1
@@ -31,3 +32,37 @@ class Token:
                 return self.type == other.type and self.value.lower() == other.value.lower()
         else:
             return NotImplemented
+
+class Scanner:
+    def __init__(self, code):
+        '''initialize the values of pos and code for new objects'''
+        self.pos = 0
+        self.code = code
+    
+    def __iter__(self):
+        '''sets pos to 0 and returns iterator'''
+        self.pos = 0
+        return self
+
+    def __next__(self):
+        '''uses regular expressions to match the various kinds of tokens and returns appropriate Token objects'''
+        tok_regex = re.compile(r'(?P<IDENT>[A-Za-z_]+)|(?P<CURRENCY>-?\d+(\.\d*)?)|(?P<MISMATCH>[^\n \t]+)')
+        search = tok_regex.search(self.code, self.pos)
+        if search:
+            kind = search.lastgroup
+            value = search.group()
+            if kind == 'IDENT':
+                try:
+                    kind = Type[value.upper()]
+                except:
+                    kind = Type.IDENT
+            elif kind == 'CURRENCY':
+                value = int(float(value) * 100) if '.' in value else int(value) * 100
+                kind = Type.CURRENCY
+            elif kind == 'MISMATCH':
+                raise ValueError(value)
+            temp = Token(kind, value)
+            self.pos = search.end() + 1
+            return temp
+        else:
+            raise StopIteration
