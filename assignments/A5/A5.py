@@ -66,3 +66,32 @@ class Scanner:
             return temp
         else:
             raise StopIteration
+
+def ledger(string):
+    '''receives a string and returns a list of tuples or throws value error if unexpected token is found'''
+    scanner = Scanner(string)
+
+    dct = {}
+    for token in scanner:
+        if(token.type == Type.OPEN):
+            kind = next(scanner).value
+            val = next(scanner).value
+            if kind not in dct:
+                dct[kind] = val
+            else:
+                raise ValueError(token.value)
+        elif(token.type == Type.TRANSFER):
+            account = next(scanner).value
+            recipient = next(scanner).value
+            amount = next(scanner).value
+            if account in dct and recipient in dct:
+                dct[account] -= amount
+                dct[recipient] += amount
+            else:
+                raise ValueError(token.value)
+        elif(token.type == Type.IDENT):
+            if token.value in dct:
+                tup = (token.value, dct[token.value])
+            else:
+                tup = (token.value, 0)
+            yield tup

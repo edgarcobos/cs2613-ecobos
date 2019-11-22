@@ -1,4 +1,4 @@
-from A5 import Type, Token, Scanner
+from A5 import Type, Token, Scanner, ledger
 import pytest
 
 def test_enum():
@@ -62,3 +62,59 @@ def test_scan_bad():
     scanner=Scanner("&crash")
     with pytest.raises(ValueError, match="&crash"):
         next(scanner)
+
+def test_empty():
+    assert list(ledger("")) == []
+def test_balance():
+    assert list(ledger('''
+                    balance cash
+                    balance stock
+                    ''')) == [("cash",0),("stock",0)]
+def test_open():
+    assert list(ledger('''
+                        open cash 100
+                        balance cash
+    ''')) == [("cash",10000)]
+def test_transfer():
+    assert list(ledger('''
+                        open cash 100
+                        open expenses 0
+                        transfer cash expenses 50
+                        balance cash
+                        balance expenses
+                        ''')) == [("cash",5000),("expenses",5000)]
+def test_ledger():
+    '''test assignment's example'''
+    assert list(ledger('''
+                        open cash 100
+                        open expenses 0
+                        open equity 0
+                        transfer cash expenses 50
+                        transfer equity cash 100
+                        balance cash
+                        balance expenses
+                        ''')) == [("cash",15000),("expenses",5000)]
+
+def test_crash():
+    '''test exception for string with unexpected value'''
+    ldgr = ledger("open &crash 100")
+    with pytest.raises(ValueError, match="&crash"):
+        next(ldgr)
+
+def test_transfer2():
+    '''test exception for string with transfer before both accounts involved are opened'''
+    ldgr = ledger('''
+                        open cash 100
+                        transfer cash expenses 50
+    ''')
+    with pytest.raises(ValueError, match="transfer"):
+        next(ldgr)
+
+def test_open2():
+    '''test exception for string with open that opens existing account'''
+    ldgr = ledger('''
+                        open cash 100
+                        open cash 0
+    ''')
+    with pytest.raises(ValueError, match="open"):
+        next(ldgr)
