@@ -94,6 +94,412 @@
 
           <article>
   <header>
+    <h2><a href='/2019/12/lab-23.html'>Lab 23</a></h2>
+    <p class='date-and-tags'>
+<time datetime="2019-12-04" pubdate="true">2019-12-04</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
+    <p class='authors'>By: <span class="authors"><a href="/tags/Author-Edgar-Cobos.html">Edgar Cobos</a></span></p>
+  </header>
+
+<h2 id="broadcasting">Broadcasting</h2>
+
+<p>At the beginning of this lab, we learned about broadcasting. The rule for broadcasting is that corresponding array dimensions must either be equal, or one of them must be 1. In the case where one of the dimensions is 1, the smaller matrix is tiled to match the dimensions of the larger matrix. This can be demonstrated with the following example:</p>
+
+<div class="brush: matlab">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2
+3
+4
+5</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="n">x</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span><span class="p">;</span>
+     <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">;</span>
+     <span class="mi">7</span> <span class="mi">8</span> <span class="mi">9</span><span class="p">];</span>
+<span class="n">y</span> <span class="p">=</span> <span class="p">[</span><span class="mi">10</span> <span class="mi">20</span> <span class="mi">30</span><span class="p">];</span>
+<span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<div class="brush: matlab">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2
+3
+4
+5</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="nb">ans</span> <span class="p">=</span>
+
+<span class="mi">11</span>   <span class="mi">22</span>   <span class="mi">33</span>
+<span class="mi">14</span>   <span class="mi">25</span>   <span class="mi">36</span>
+<span class="mi">17</span>   <span class="mi">28</span>   <span class="mi">39</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<h2 id="scaling-layers-of-arrays">Scaling layers of arrays</h2>
+
+<p>In this part of the lab, we completed the <code>scale_layers</code> function like so:</p>
+
+<div class="brush: matlab">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2
+3</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="k">function</span><span class="w"> </span>out <span class="p">=</span><span class="w"> </span><span class="nf">scale_layers</span><span class="p">(</span>array, weights<span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">out</span> <span class="p">=</span> <span class="n">array</span> <span class="o">.*</span> <span class="nb">reshape</span><span class="p">(</span><span class="n">weights</span><span class="p">,[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">]);</span>
+<span class="n">endfunction</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<p>We converted <code>paris.jpg</code> to sepia by running the folowing demo code:</p>
+
+<div class="brush: matlab">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2
+3</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="n">paris</span><span class="p">=</span><span class="n">imread</span><span class="p">(</span>"<span class="n">paris</span><span class="p">.</span><span class="n">jpg</span>"<span class="p">);</span>
+<span class="n">sepia</span><span class="p">=</span><span class="n">scale_layers</span><span class="p">(</span><span class="n">paris</span><span class="p">,[</span><span class="mf">0.9</span><span class="p">,</span><span class="mf">0.62</span><span class="p">,</span><span class="mf">0.34</span><span class="p">]);</span>
+<span class="n">imshow</span><span class="p">(</span><span class="n">sepia</span><span class="p">);</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<h2 id="monochrome">Monochrome</h2>
+
+<p>After converting to sepia, we practiced converting images to monochrome by completing the <code>monochrome</code> function as follows:</p>
+
+<div class="brush: matlab">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2
+3</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="k">function</span><span class="w"> </span>out <span class="p">=</span><span class="w"> </span><span class="nf">monochrome</span><span class="p">(</span>in, weights=[0.21,0.72,0.07]<span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">out</span> <span class="p">=</span> <span class="n">sum</span><span class="p">(</span><span class="n">scale_layers</span><span class="p">(</span><span class="n">in</span><span class="p">,</span><span class="n">weights</span><span class="p">),</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">endfunction</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<h2 id="gradient">Gradient</h2>
+
+<p>Lastly, we completed the <code>normgrad</code> function by combining Dx and Dy arrays into a single array such that <code>norming(i,j) = norm([Dx(i,j),Dy(i,j)])</code>.</p>
+
+<div class="brush: matlab">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2
+3
+4</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="k">function</span><span class="w"> </span>normimg <span class="p">=</span><span class="w"> </span><span class="nf">normgrad</span><span class="p">(</span>img<span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">[</span><span class="n">Dx</span><span class="p">,</span> <span class="n">Dy</span><span class="p">]</span> <span class="p">=</span> <span class="n">gradient</span><span class="p">(</span><span class="n">img</span><span class="p">);</span>
+    <span class="n">normimg</span> <span class="p">=</span> <span class="nb">sqrt</span><span class="p">(</span><span class="n">Dx</span><span class="o">.^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">Dy</span><span class="o">.^</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">endfunction</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+  <footer>
+    <a href='/2019/12/lab-23.html'>&hellip; more &hellip;</a>
+  </footer>
+</article>
+<article>
+  <header>
+    <h2><a href='/2019/12/lab-22.html'>Lab 22</a></h2>
+    <p class='date-and-tags'>
+<time datetime="2019-12-04" pubdate="true">2019-12-04</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
+    <p class='authors'>By: <span class="authors"><a href="/tags/Author-Edgar-Cobos.html">Edgar Cobos</a></span></p>
+  </header>
+
+<h2 id="cell-arrays">Cell Arrays</h2>
+
+<p>At the beginning of the lab, we learned about cell arrays, which are like multidimensional versions of Python&rsquo;s lists. Our task was to change the following example to find the columns sums in a function <code>rowfun</code>.</p>
+
+<div class="brush: matlab">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2
+3</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="n">data</span> <span class="p">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">;</span> <span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">;</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">;</span> <span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">cells</span> <span class="p">=</span> <span class="n">num2cell</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">cellfun</span><span class="p">(@</span><span class="n">sum</span><span class="p">,</span><span class="n">cells</span><span class="p">)</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<h2 id="variable-length-argument-lists">Variable-length argument lists</h2>
+
+<p>Next, we practiced using <code>varargin</code> to update the <code>timeit</code> function from Lab 20 for it tow work not only for single argument functions. This special input argument <code>varargin</code> collects all remaining arguments into a cell array, similar to rest in Racket.</p>
+
+<h2 id="k-nearest-neighbour">K nearest neighbour</h2>
+
+<p>In this part of the lab, we looked at the k-Nearest neighbour algorithm. Our task was to complete the <code>nearest</code> function which returns the row indices of the <code>k</code> closest rows of <code>data</code> to <code>v</code> with the help of the distance definition from linear algebra (<code>distance(X,Y) = norm(X-Y</code>). Then, we timed our nearest neighbour query with the following:</p>
+
+<div class="brush: matlab">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2
+3</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="n">load</span> <span class="n">training</span>
+<span class="n">load</span> <span class="n">testing</span>
+<span class="n">timeit</span><span class="p">(</span><span class="mi">1000</span><span class="p">,@</span><span class="n">nearest</span><span class="p">,</span><span class="n">testing</span><span class="p">(</span><span class="mi">1</span><span class="p">,:),</span> <span class="mi">3</span><span class="p">,</span> <span class="n">training</span><span class="p">);</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<h2 id="using-rowfun">Using rowfun</h2>
+
+<p>Lastly, we used the <code>find</code> function to complete the loop-free version of knn, which is a useful technique to know in general.</p>
+  <footer>
+    <a href='/2019/12/lab-22.html'>&hellip; more &hellip;</a>
+  </footer>
+</article>
+<article>
+  <header>
+    <h2><a href='/2019/11/lab-21.html'>Lab 21</a></h2>
+    <p class='date-and-tags'>
+<time datetime="2019-11-26" pubdate="true">2019-11-26</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
+    <p class='authors'>By: <span class="authors"><a href="/tags/Author-Edgar-Cobos.html">Edgar Cobos</a></span></p>
+  </header>
+
+<h2 id="working-with-grids">Working with grids</h2>
+
+<p>At the beginning of Lab 21, we reviewed some Octave syntax.</p>
+
+<ul>
+ <li>
+  <p><code>[-1:0.5:1]</code> creates an array containing all numbers from &ndash;1 to 1 with intervals of 0.5.</p></li>
+ <li>
+  <p>Meshgrid takes in two arrays and meshes them into a single parallel array (i.e. <code>[X,Y] = meshgrid(r,r)</code>)</p></li>
+ <li>
+  <p><code>X.^2</code> will square all values of an array X.</p></li></ul>
+
+<h2 id="defining-and-testing-a-function">Defining and testing a function</h2>
+
+<p>Next, we looked at creating a function to evaluate the following: <em>δ(β, a, b) = βa·b - (β&ndash;1)b·b</em>. Wr used the <code>dot</code> function to calculate dot products as needed.</p>
+
+<p>We were introduced to multi-line tests, which allows us to set up a test by initializing variables. We passed <code>eps</code> to our test as our error tolerance.</p>
+
+<div class="brush: matlab">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2
+3
+4
+5</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="c">%% delta(0,a,b) = |b|²</span>
+<span class="c">%!test</span>
+<span class="c">%! a = rand(2,1)</span>
+<span class="c">%! b = rand(2,1)</span>
+<span class="c">%! assert(delta(0,a,b), norm(b)^2, eps)</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<h2 id="making-3d-plots">Making 3D plots</h2>
+
+<p>For this part, we took the delta function and used it to build a #D surface map. The X and Y were created using the range function while Z was created using value <strong>beta</strong> of <strong>7.5</strong> and array <strong>a</strong> of <strong>[4;4]</strong>. The result was a symmetrical parabolic plot.</p>
+
+<h2 id="using-arrayfun">Using <code>arrayfun</code></h2>
+
+<p>In this part of the lab, we implemented the <code>arrayfun</code> function by using a mathematical function and applying it to the passed array. The following example calls <code>arrayfun</code> which iterates over both X and Y arrays and applies function <code>f</code> to them.</p>
+
+<div class="brush: matlab">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2
+3</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="n">f</span> <span class="p">=</span> <span class="p">@(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)(</span><span class="n">delta</span><span class="p">(</span><span class="nb">beta</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">;</span><span class="n">y</span><span class="p">]));</span>
+
+<span class="n">Z</span> <span class="p">=</span> <span class="n">arrayfun</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">);</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<h2 id="fully-vectorizing">Fully vectorizing</h2>
+
+<p>Out last task was to complete the faster vectorized function <code>arraydelta</code> by using the equation <code>Z(i,j) = beta * (a(1)*X(i,j) + a(2)*Y(i,j)) - (beta-1) * (X(i,j)^2 + Y(i,j)^2)</code>. For this, we replaced the calls to <code>X(i,j)</code> and <code>Y(i,j)</code> with <code>X.</code> and <code>Y.</code> for Octave to apply the operations to all values of X and Y as follows:</p>
+
+<div class="brush: matlab">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="n">Z</span> <span class="p">=</span> <span class="nb">beta</span> <span class="o">*</span> <span class="p">(</span><span class="n">a</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.*</span><span class="n">X</span> <span class="o">+</span> <span class="n">a</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.*</span><span class="n">Y</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="nb">beta</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">.^</span><span class="mi">2</span> <span class="o">+</span> <span class="n">Y</span><span class="o">.^</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<p>Timing for surfex, surfex2, and surfex3:</p>
+
+<p>Elapsed time is 0.62296 seconds.</p>
+
+<p>Elapsed time is 0.171985 seconds.</p>
+
+<p>Elapsed time is 0.00023818 seconds.</p>
+  <footer>
+    <a href='/2019/11/lab-21.html'>&hellip; more &hellip;</a>
+  </footer>
+</article>
+<article>
+  <header>
+    <h2><a href='/2019/11/lab-20.html'>Lab 20</a></h2>
+    <p class='date-and-tags'>
+<time datetime="2019-11-21" pubdate="true">2019-11-21</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
+    <p class='authors'>By: <span class="authors"><a href="/tags/Author-Edgar-Cobos.html">Edgar Cobos</a></span></p>
+  </header>
+
+<h2 id="running-octave">Running Octave</h2>
+
+<p>At the beginning of Lab 20, we practiced running Octave. Similar to Racket, there are two main ways to run it; through a REPL by running <code>octave</code> in the command line, or through a GUI application.</p>
+
+<h2 id="fibonacci">Fibonacci</h2>
+
+<p>Next, we looked at creating an Octave program to generate a Fibonacci sequence. Some of the noticeable differences between Octave and other programming languages is define scope, done in Octave by using keywords such as <code>endfor</code> and <code>endfunction</code>. This is how the Octave version of the Fibonacci generator ended up looking like:</p>
+
+<div class="brush: matlab">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="k">function</span><span class="w"> </span>ret <span class="p">=</span><span class="w"> </span><span class="nf">fib</span><span class="p">(</span>n<span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">a</span> <span class="p">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">b</span> <span class="p">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">for</span> <span class="nb">i</span><span class="p">=</span><span class="mi">0</span><span class="p">:</span><span class="n">n</span>
+        <span class="n">ret</span> <span class="p">=</span> <span class="n">a</span><span class="p">;</span>
+        <span class="n">a</span> <span class="p">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+        <span class="n">b</span> <span class="p">=</span> <span class="n">ret</span><span class="p">;</span>
+    <span class="n">endfor</span>
+<span class="n">endfunction</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<h2 id="matrix-and-vector-review">Matrix and vector review</h2>
+
+<ul>
+ <li><code>Dot product: dot([1;0;1], [2,1,0])</code></li>
+ <li><code>Matrix multiplication: [1;0;1] * [2,1,0]</code></li></ul>
+
+<h2 id="fibonacci-as-matrix-multiplication">Fibonacci as matrix multiplication</h2>
+
+<p>After the matrix and vector review, we practiced using matrices to calculate the Fibonacci sequence.</p>
+
+<div class="brush: matlab">
+ <table class="sourcetable">
+  <tbody>
+   <tr>
+    <td class="linenos">
+     <div class="linenodiv">
+      <pre>1
+2
+3
+4
+5</pre></div></td>
+    <td class="code">
+     <div class="source">
+      <pre><span></span><span class="k">function</span><span class="w"> </span>ret <span class="p">=</span><span class="w"> </span><span class="nf">fibmat</span><span class="p">(</span>n<span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">A</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">;</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">];</span>
+    <span class="n">B</span> <span class="p">=</span> <span class="n">A</span>^<span class="n">n</span><span class="p">;</span>
+    <span class="n">ret</span> <span class="p">=</span> <span class="n">B</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">endfunction</span>
+</pre></div>
+</td></tr></tbody></table>
+</div>
+
+<h2 id="performance-comparison">Performance comparison</h2>
+
+<p>fib median=0.209ms mean=0.217ms total=21741.440ms fibmat median=0.037ms mean=0.039ms total=3910.122ms</p>
+
+<p>Vectorization is about 5 times faster than iteration.</p>
+
+<h2 id="using-the-profiler">Using the profiler</h2>
+
+<p>Lastly, we looked at profiling, which improves upon timing by recording the number of calls to each function</p>
+
+<p>Through the profiler, we were able to observe that the iterative version makes 1001 calls to the binary + operator compared to the one call made to the binary ^ in the vectorized implementation, which explains why the vectorized version is faster.</p>
+  <footer>
+    <a href='/2019/11/lab-20.html'>&hellip; more &hellip;</a>
+  </footer>
+</article>
+<article>
+  <header>
     <h2><a href='/2019/11/lab-19.html'>Lab 19</a></h2>
     <p class='date-and-tags'>
 <time datetime="2019-11-20" pubdate="true">2019-11-20</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
@@ -858,677 +1264,13 @@ sievegen=&lt;generator object drop_divisible at 0x103087750&gt;
     <a href='/2019/10/lab-14.html'>&hellip; more &hellip;</a>
   </footer>
 </article>
-<article>
-  <header>
-    <h2><a href='/2019/10/lab-13.html'>Lab 13</a></h2>
-    <p class='date-and-tags'>
-<time datetime="2019-10-22" pubdate="true">2019-10-22</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
-    <p class='authors'>By: <span class="authors"><a href="/tags/Author-Edgar-Cobos.html">Edgar Cobos</a></span></p>
-  </header>
-
-<h2 id="timers">Timers</h2>
-
-<p>At the beginning of Lab 13, we went over asynchronous programming in JavaScript. We looked at the <code>setTimout</code> function which takes in a callback function and an amount of time to wait before calling the function. This imitates a sleep function with some drawbacks. Since JavaScript runs asynchronously it will run code that is sequentially after the <code>setTimeout</code> call, which may produce an error linked to order of operations. In this case, <code>setTimeout</code> was used in a function to print out an increasing number of <code>*</code>, imitating a progress bar, which looked like this:</p>
-
-<div class="brush: js">
- <table class="sourcetable">
-  <tbody>
-   <tr>
-    <td class="linenos">
-     <div class="linenodiv">
-      <pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12</pre></div></td>
-    <td class="code">
-     <div class="source">
-      <pre><span></span><span class="kd">function</span> <span class="nx">loop</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">i</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"\033c"</span><span class="p">);</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span>
-        <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">loop</span><span class="p">(</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">str</span><span class="o">+</span><span class="s2">"*"</span><span class="p">);</span> <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="k">else</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"all done!"</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="nx">loop</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="s2">"*"</span><span class="p">);</span>
-</pre></div>
-</td></tr></tbody></table>
-</div>
-
-<p>After implementing our progress bar using the <code>setTimeout</code> function, we were introduced to <code>setInterval</code> and <code>clearInterval</code> that have the purpose to set up a recurring timer to call a function after a specified amount of time. In this case, the functions were used to again produce our own progress bar with a 300ms interaval before each additional <code>*</code>. Once the desired number of iterations was reached, the function printed &ldquo;all done!&rdquo; and cleared the interval.</p>
-
-<div class="brush: js">
- <table class="sourcetable">
-  <tbody>
-   <tr>
-    <td class="linenos">
-     <div class="linenodiv">
-      <pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20</pre></div></td>
-    <td class="code">
-     <div class="source">
-      <pre><span></span><span class="kd">function</span> <span class="nx">animate</span><span class="p">(</span><span class="nx">iterations</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
-    <span class="kd">let</span> <span class="nx">str</span><span class="o">=</span><span class="s2">""</span><span class="p">;</span>
-    <span class="kd">let</span> <span class="nx">timer</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-    <span class="kd">function</span> <span class="nx">frame</span><span class="p">()</span> <span class="p">{</span>
-        <span class="c1">// add code here</span>
-        <span class="nx">i</span><span class="o">++</span><span class="p">;</span>
-        <span class="nx">str</span> <span class="o">+=</span> <span class="s2">"*"</span><span class="p">;</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;\033c&#39;</span><span class="p">);</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">i</span><span class="o">&gt;=</span><span class="nx">iterations</span><span class="p">)</span> <span class="p">{</span>
-            <span class="c1">// and here</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"all done"</span><span class="p">);</span>
-            <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">timer</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="nx">timer</span><span class="o">=</span><span class="nx">setInterval</span><span class="p">(</span><span class="nx">frame</span><span class="p">,</span><span class="mi">300</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="nx">animate</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
-</pre></div>
-</td></tr></tbody></table>
-</div>
-
-<h2 id="overloading-tostring">Overloading toString</h2>
-
-<p>Next, we practiced method overloading by taking the <strong>VillageState</strong> class from the previous lab and overloading the <code>toString</code> method to print a grid of places with the location of the robot.</p>
-
-<div class="brush: js">
- <table class="sourcetable">
-  <tbody>
-   <tr>
-    <td class="linenos">
-     <div class="linenodiv">
-      <pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20</pre></div></td>
-    <td class="code">
-     <div class="source">
-      <pre><span></span><span class="nx">toString</span><span class="p">()</span> <span class="p">{</span>
-  <span class="kd">let</span> <span class="nx">out</span><span class="o">=</span><span class="s2">"---------\n"</span><span class="p">;</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">row</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">row</span><span class="o">&lt;</span><span class="nx">villageMap</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">row</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">out</span> <span class="o">+=</span> <span class="s2">"|"</span><span class="p">;</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">col</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">col</span><span class="o">&lt;</span><span class="nx">villageMap</span><span class="p">[</span><span class="nx">row</span><span class="p">].</span><span class="nx">length</span><span class="p">;</span> <span class="nx">col</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-      <span class="c1">// your code goes here</span>
-      <span class="k">if</span><span class="p">(</span><span class="nx">villageMap</span><span class="p">[</span><span class="nx">row</span><span class="p">][</span><span class="nx">col</span><span class="p">]</span><span class="o">===</span><span class="kc">null</span><span class="p">)</span>
-        <span class="nx">out</span> <span class="o">+=</span> <span class="s2">" "</span><span class="p">;</span>
-      <span class="k">else</span> <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">place</span> <span class="o">===</span> <span class="nx">villageMap</span><span class="p">[</span><span class="nx">row</span><span class="p">][</span><span class="nx">col</span><span class="p">])</span>
-          <span class="nx">out</span> <span class="o">+=</span> <span class="k">this</span><span class="p">.</span><span class="nx">parcels</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
-        <span class="k">else</span>
-          <span class="nx">out</span> <span class="o">+=</span> <span class="nx">villageMap</span><span class="p">[</span><span class="nx">row</span><span class="p">][</span><span class="nx">col</span><span class="p">].</span><span class="nx">toLowerCase</span><span class="p">()[</span><span class="mi">0</span><span class="p">];</span>
-      <span class="p">}</span>
-      <span class="nx">out</span> <span class="o">+=</span> <span class="s2">"|"</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="nx">out</span> <span class="o">+=</span> <span class="s2">"\n---------\n"</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="nx">out</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</td></tr></tbody></table>
-</div>
-
-<h2 id="animating-the-map">Animating the map</h2>
-
-<p>The last section of the lab integrated all of the concepts from the previous parts to animate the progress of a robot delivering parcels.</p>
-
-<p>Why does the last part where the robot wanders around with one parcel, typically take so long? In order to reach the last part, the robot has to keep bouncing randomly between places until visiting the final place, which typically take a while.</p>
-  <footer>
-    <a href='/2019/10/lab-13.html'>&hellip; more &hellip;</a>
-  </footer>
-</article>
-<article>
-  <header>
-    <h2><a href='/2019/10/lab-12.html'>Lab 12</a></h2>
-    <p class='date-and-tags'>
-<time datetime="2019-10-16" pubdate="true">2019-10-16</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
-    <p class='authors'>By: <span class="authors"><a href="/tags/Author-Edgar-Cobos.html">Edgar Cobos</a></span></p>
-  </header>
-
-<h2 id="representing-a-graph">Representing a Graph</h2>
-
-<p><em>What is const?</em> Const is a way of creating an immutable variable. This means that a variable declared using cons will never change.</p>
-
-<p>At the beginning of lab 11, we practiced creating a graph representation of a town using objects. For this, we created an object with places as keys and a list of neighbours as values. When creating the test cases for the routes, we used objectContaining() to check that the list of places adjacent to &ldquo;Alice&rsquo;s House&rdquo; contained &ldquo;Bob&rsquo;s House&rdquo;.</p>
-
-<p>These are the test cases:</p>
-
-<div class="brush: js">
- <table class="sourcetable">
-  <tbody>
-   <tr>
-    <td class="linenos">
-     <div class="linenodiv">
-      <pre>1
-2
-3
-4
-5
-6
-7
-8</pre></div></td>
-    <td class="code">
-     <div class="source">
-      <pre><span></span><span class="nx">it</span><span class="p">(</span><span class="s2">"Alice&#39;s neighbours"</span><span class="p">,</span>
-<span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">roadGraph</span><span class="p">[</span><span class="s2">"Alice&#39;s House"</span><span class="p">].</span><span class="nx">sort</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">([</span><span class="s2">"Bob&#39;s House"</span><span class="p">,</span> <span class="s2">"Cabin"</span><span class="p">,</span> <span class="s2">"Post Office"</span><span class="p">]);</span>
-        <span class="p">});</span>
-<span class="nx">it</span><span class="p">(</span><span class="s2">"Bob&#39;s neighbours"</span><span class="p">,</span>
-<span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-        <span class="nx">expect</span><span class="p">(</span><span class="nx">roadGraph</span><span class="p">[</span><span class="s2">"Bob&#39;s House"</span><span class="p">]).</span><span class="nx">toEqual</span><span class="p">(</span><span class="nx">jasmine</span><span class="p">.</span><span class="nx">objectContaining</span><span class="p">([</span><span class="s2">"Alice&#39;s House"</span><span class="p">]));</span>
-<span class="p">});</span>
-</pre></div>
-</td></tr></tbody></table>
-</div>
-
-<h2 id="representing-state">Representing State</h2>
-
-<p><em>What property of the VillageState data stucture is emphasized in this section of the book?</em> The property of the VillageState data structure emphasizes is the parcel property.</p>
-
-<p><em>What &ldquo;update&rdquo; operation(s) in Racket does this remind you of?</em> The &ldquo;update&rdquo; operation reminds me of <code>set</code> in Racket.</p>
-
-<p>Next, we went over classes. We looked at the VillageState class with the function <code>move</code>. This function moves a parcel from the current place to a new one if the path is valid. It would also drop off any packages in their destination. Then, we converted code that logged <strong>next.place</strong>, <strong>next.parcels</strong>, and <strong>first.place</strong> into the console and used it to write our unit tests:</p>
-
-<div class="brush: js">
- <table class="sourcetable">
-  <tbody>
-   <tr>
-    <td class="linenos">
-     <div class="linenodiv">
-      <pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17</pre></div></td>
-    <td class="code">
-     <div class="source">
-      <pre><span></span><span class="kd">let</span> <span class="nx">first</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VillageState</span><span class="p">(</span>
-    <span class="s2">"Post Office"</span><span class="p">,</span>
-    <span class="p">[{</span><span class="nx">place</span><span class="o">:</span> <span class="s2">"Post Office"</span><span class="p">,</span> <span class="nx">address</span><span class="o">:</span> <span class="s2">"Alice&#39;s House"</span><span class="p">},</span> <span class="p">{</span><span class="nx">place</span><span class="o">:</span> <span class="s2">"Mars"</span><span class="p">,</span> <span class="nx">address</span><span class="o">:</span> <span class="s2">"Jupiter"</span><span class="p">}]</span>
-<span class="p">);</span>
-<span class="kd">let</span> <span class="nx">next</span> <span class="o">=</span> <span class="nx">first</span><span class="p">.</span><span class="nx">move</span><span class="p">(</span><span class="s2">"Alice&#39;s House"</span><span class="p">);</span>
-<span class="nx">it</span><span class="p">(</span><span class="s2">"move changes place"</span><span class="p">,</span>
-<span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="nx">expect</span><span class="p">(</span><span class="nx">next</span><span class="p">.</span><span class="nx">place</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s2">"Alice&#39;s House"</span><span class="p">);</span>
-<span class="p">});</span>
-<span class="nx">it</span><span class="p">(</span><span class="s2">"parcel is delivered"</span><span class="p">,</span>
-<span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="nx">expect</span><span class="p">(</span><span class="nx">next</span><span class="p">.</span><span class="nx">parcels</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">([{</span><span class="nx">place</span><span class="o">:</span> <span class="s2">"Mars"</span><span class="p">,</span> <span class="nx">address</span><span class="o">:</span> <span class="s2">"Jupiter"</span><span class="p">}]);</span>
-<span class="p">});</span>
-<span class="nx">it</span><span class="p">(</span><span class="s2">"move does not modify"</span><span class="p">,</span>
-<span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="nx">expect</span><span class="p">(</span><span class="nx">first</span><span class="p">.</span><span class="nx">place</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s2">"Post Office"</span><span class="p">);</span>
-<span class="p">});</span>
-</pre></div>
-</td></tr></tbody></table>
-</div>
-
-<h2 id="testing-the-random-robot">Testing the random robot</h2>
-
-<p>The last section, we explored mock tests by using the <code>spy</code> utility to help us intercept calls to a function and record what they are called with. For this, we used the <code>runRobot</code> function that is used to deliver packages through <code>randomPick</code> and <code>randomRobot</code>. Then, we intercepted the calls made to <code>console.log</code> to check if it was called with the correct string and, thus, we were able to determine the success of <code>runRobot</code>.</p>
-
-<p>Mock tests using <code>spy</code>:</p>
-
-<div class="brush: js">
- <table class="sourcetable">
-  <tbody>
-   <tr>
-    <td class="linenos">
-     <div class="linenodiv">
-      <pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13</pre></div></td>
-    <td class="code">
-     <div class="source">
-      <pre><span></span><span class="nx">it</span><span class="p">(</span><span class="s2">"no parcels"</span><span class="p">,</span>
-    <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="o">=</span> <span class="nx">jasmine</span><span class="p">.</span><span class="nx">createSpy</span><span class="p">(</span><span class="s2">"log"</span><span class="p">);</span>
-    <span class="kd">let</span> <span class="nx">noParcels</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">VillageState</span><span class="p">(</span><span class="s2">"Post Office"</span><span class="p">,[]);</span>
-    <span class="nx">village</span><span class="p">.</span><span class="nx">runRobot</span><span class="p">(</span><span class="nx">noParcels</span><span class="p">);</span>
-    <span class="nx">expect</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">).</span><span class="nx">toHaveBeenCalledWith</span><span class="p">(</span><span class="s2">"Done in 0 turns"</span><span class="p">);</span>
-<span class="p">});</span>
-<span class="nx">it</span><span class="p">(</span><span class="s2">"randomRobot"</span><span class="p">,</span>
-    <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="o">=</span> <span class="nx">jasmine</span><span class="p">.</span><span class="nx">createSpy</span><span class="p">(</span><span class="s2">"log"</span><span class="p">);</span>
-    <span class="nx">village</span><span class="p">.</span><span class="nx">runRobot</span><span class="p">(</span><span class="nx">VillageState</span><span class="p">.</span><span class="nx">random</span><span class="p">(),</span> <span class="nx">village</span><span class="p">.</span><span class="nx">randomRobot</span><span class="p">);</span>
-    <span class="nx">expect</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">).</span><span class="nx">toHaveBeenCalledWith</span><span class="p">(</span><span class="nx">jasmine</span><span class="p">.</span><span class="nx">stringMatching</span><span class="p">(</span><span class="sr">/^Done/</span><span class="p">));</span>
-<span class="p">});</span>
-</pre></div>
-</td></tr></tbody></table>
-</div>
-  <footer>
-    <a href='/2019/10/lab-12.html'>&hellip; more &hellip;</a>
-  </footer>
-</article>
-<article>
-  <header>
-    <h2><a href='/2019/10/lab-11.html'>Lab 11</a></h2>
-    <p class='date-and-tags'>
-<time datetime="2019-10-15" pubdate="true">2019-10-15</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
-    <p class='authors'>By: <span class="authors"><a href="/tags/Author-Edgar-Cobos.html">Edgar Cobos</a></span></p>
-  </header>
-
-<h2 id="array-methods">Array methods</h2>
-
-<p>At the beginning of lab 11, we dived into higher order methods in JavaScript such as <code>map</code> and <code>filter</code> which behave similarily than in Racket. We learned about the <code>reduce</code> function and implemented it in a similar way to <code>foldl</code> to calculate the average of the numbers in an array. Then, we used <code>forEach</code> in order to iterate over an array with an arbitrary action without the need for loop indices and bounds. Although <code>forEach</code> resembles, it is different in that it does not construct a list.</p>
-
-<p>The functions implimenting <code>foldl</code> and <code>forEach</code> ended up looking like this:</p>
-
-<div class="brush: js">
- <table class="sourcetable">
-  <tbody>
-   <tr>
-    <td class="linenos">
-     <div class="linenodiv">
-      <pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13</pre></div></td>
-    <td class="code">
-     <div class="source">
-      <pre><span></span><span class="c1">//foldl</span>
-<span class="kd">function</span> <span class="nx">average</span> <span class="p">(</span><span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">array</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">a</span><span class="p">,</span><span class="nx">b</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">a</span><span class="o">+</span><span class="nx">b</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">average</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]));</span>
-
-<span class="c1">//forEach</span>
-<span class="kd">function</span> <span class="nx">average2</span> <span class="p">(</span><span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">sum</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
-    <span class="nx">array</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span><span class="nx">sum</span> <span class="o">+=</span> <span class="nx">a</span><span class="p">});</span>
-    <span class="k">return</span> <span class="nx">sum</span><span class="o">/</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">average</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]));</span>
-</pre></div>
-</td></tr></tbody></table>
-</div>
-
-<h2 id="flatten">Flatten</h2>
-
-<p>Next, we practiced using <code>reduce</code> and <code>concat</code> to &ldquo;flatten&rdquo; an array of arrays into a single array that has all the elements of the original arrays. With reduce, we were able to iterate over the elements while concat allowed us to add each element to the solution array, which is initially an empty array. The solution to this exercise was not very complex thanks to the help of <code>reduce</code> and <code>concat</code>. However, it only worked for one level of nesting, for which it would need to be implement recursively.</p>
-
-<p><strong>Flatten</strong></p>
-
-<div class="brush: js">
- <table class="sourcetable">
-  <tbody>
-   <tr>
-    <td class="linenos">
-     <div class="linenodiv">
-      <pre>1
-2
-3</pre></div></td>
-    <td class="code">
-     <div class="source">
-      <pre><span></span><span class="kd">function</span> <span class="nx">flatten</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">array</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">acc</span><span class="p">,</span><span class="nx">cur</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">acc</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">cur</span><span class="p">),</span> <span class="p">[]);</span>
-<span class="p">}</span>
-</pre></div>
-</td></tr></tbody></table>
-</div>
-
-<h2 id="jason">Jason</h2>
-
-<p>Then, we went over parsing JSON. This time, our task was to implement a linear scanner to look for a name in the data from <strong>ancestry.json</strong> and if found return its information. In order to iteratve over the data, I used a for loop as so:</p>
-
-<div class="brush: js">
- <table class="sourcetable">
-  <tbody>
-   <tr>
-    <td class="linenos">
-     <div class="linenodiv">
-      <pre>1
-2
-3
-4
-5
-6
-7</pre></div></td>
-    <td class="code">
-     <div class="source">
-      <pre><span></span><span class="c1">//linear scanner</span>
-<span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">let</span> <span class="nx">current_name</span> <span class="o">=</span> <span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">;</span>
-        <span class="k">if</span><span class="p">(</span><span class="nx">current_name</span> <span class="o">==</span> <span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
-        <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</td></tr></tbody></table>
-</div>
-
-<h2 id="methods">Methods</h2>
-
-<p>In this part of the lab, we learned about methods and explored different ways of creating a Time object with the properties <code>hours</code> and <code>minutes</code> and a <code>plus</code> method. The first way, involved creating a function <code>plus</code>, assigning the plus method to a variable inside the function and using it to return makeTime, and then returning the function along with the hours and minutes properties.</p>
-
-<div class="brush: js">
- <table class="sourcetable">
-  <tbody>
-   <tr>
-    <td class="linenos">
-     <div class="linenodiv">
-      <pre>1
-2
-3
-4
-5
-6
-7</pre></div></td>
-    <td class="code">
-     <div class="source">
-      <pre><span></span><span class="kd">function</span> <span class="nx">maketime</span><span class="p">(</span><span class="nx">hours</span><span class="p">,</span> <span class="nx">mins</span><span class="p">){</span>
-    <span class="kd">let</span> <span class="nx">plus</span><span class="o">=</span><span class="kd">function</span> <span class="p">(</span><span class="nx">other</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">let</span> <span class="nx">raw</span><span class="o">=</span><span class="nx">timePlus</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="nx">other</span><span class="p">);</span>
-        <span class="k">return</span> <span class="nx">maketime</span><span class="p">(</span><span class="nx">raw</span><span class="p">.</span><span class="nx">hours</span><span class="p">,</span> <span class="nx">raw</span><span class="p">.</span><span class="nx">mins</span><span class="p">);</span>
-    <span class="p">};</span>
-    <span class="k">return</span> <span class="p">{</span> <span class="s2">"hours"</span><span class="o">:</span> <span class="nx">hours</span><span class="p">,</span> <span class="s2">"mins"</span><span class="o">:</span> <span class="nx">mins</span><span class="p">,</span> <span class="s2">"plus"</span><span class="o">:</span> <span class="nx">plus</span><span class="p">};</span>
-<span class="p">}</span>
-</pre></div>
-</td></tr></tbody></table>
-</div>
-
-<p>Then, we looked at prototypes and used it to create a Time function and modify its prototype to include the plus method.</p>
-
-<div class="brush: js">
- <table class="sourcetable">
-  <tbody>
-   <tr>
-    <td class="linenos">
-     <div class="linenodiv">
-      <pre>1
-2
-3
-4</pre></div></td>
-    <td class="code">
-     <div class="source">
-      <pre><span></span><span class="nx">Time</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">plus</span><span class="o">=</span><span class="kd">function</span> <span class="p">(</span><span class="nx">other</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">raw</span><span class="o">=</span><span class="nx">timePlus</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="nx">other</span><span class="p">);</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="nx">Time</span><span class="p">(</span><span class="nx">raw</span><span class="p">.</span><span class="nx">hours</span><span class="p">,</span> <span class="nx">raw</span><span class="p">.</span><span class="nx">mins</span><span class="p">);</span>
-<span class="p">};</span>
-</pre></div>
-</td></tr></tbody></table>
-</div>
-
-<p>Finally, we created an object with a constructor among other methods via the class keyword, which is a familiar concept from Java.</p>
-
-<h2 id="memoization">Memoization</h2>
-
-<p>The last section, talked about memoization as a optimization technique that makes use of cache to speed up the reading of commonly accessed data. Reading json files had noticeable speed increases when implementing memoization, going down from 0.008ms for <strong>ancestry.json</strong> and 0.622ms for <strong>big.json</strong> to 0.003ms for each one during their last test.</p>
-
-<p>This is how I implemented my loop for memoization:</p>
-
-<div class="brush: js">
- <table class="sourcetable">
-  <tbody>
-   <tr>
-    <td class="linenos">
-     <div class="linenodiv">
-      <pre>1
-2
-3
-4
-5</pre></div></td>
-    <td class="code">
-     <div class="source">
-      <pre><span></span><span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span> <span class="o">===</span> <span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">cache</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
-        <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</td></tr></tbody></table>
-</div>
-  <footer>
-    <a href='/2019/10/lab-11.html'>&hellip; more &hellip;</a>
-  </footer>
-</article>
-<article>
-  <header>
-    <h2><a href='/2019/10/lab-10.html'>Lab 10</a></h2>
-    <p class='date-and-tags'>
-<time datetime="2019-10-08" pubdate="true">2019-10-08</time> :: <span class="tags"><a href="/tags/all.html">all</a></span></p>
-    <p class='authors'>By: <span class="authors"><a href="/tags/Author-Edgar-Cobos.html">Edgar Cobos</a></span></p>
-  </header>
-
-<h2 id="javascript-objects">JavaScript Objects</h2>
-
-<p>At the beginning of lab 10, we learned about objects in JavaScript. We tried out the <code>property</code> notation and concluded that a <em>method</em> in javascript is just a property that is assigned to a function.</p>
-
-<h2 id="deep-comparison">Deep Comparison</h2>
-
-<p>Next, we wrote a function <strong>deepEqual</strong> to pass the provided tests. We learned about the <code>toEqual</code> matcher from Jasmine that can be compared to the <code>equal?</code> checker from Racket.</p>
-
-<p>My <strong>deepEqual</strong> function ended up looking like this:</p>
-
-<div class="brush: js">
- <table class="sourcetable">
-  <tbody>
-   <tr>
-    <td class="linenos">
-     <div class="linenodiv">
-      <pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20</pre></div></td>
-    <td class="code">
-     <div class="source">
-      <pre><span></span><span class="c1">//deepEqual.js</span>
-<span class="kd">function</span> <span class="nx">deepEqual</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span><span class="p">(</span><span class="nx">x</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="nx">y</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">if</span><span class="p">(</span><span class="nx">x</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">y</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">if</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"object"</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span><span class="p">(</span><span class="nx">y</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"object"</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">prop</span> <span class="k">in</span> <span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">prop</span> <span class="k">in</span> <span class="nx">y</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="p">(</span><span class="nx">deepEqual</span><span class="p">(</span><span class="nx">x</span><span class="p">[</span><span class="nx">prop</span><span class="p">],</span> <span class="nx">y</span><span class="p">[</span><span class="nx">prop</span><span class="p">])))</span> <span class="p">{</span>
-                <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">else</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="p">(</span><span class="nx">x</span> <span class="o">===</span> <span class="nx">y</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</td></tr></tbody></table>
-</div>
-
-<h2 id="javascript-arrays">JavaScript Arrays</h2>
-
-<p>In this part, we learned that arrays in JavaScript are actually implimented as objects, leading to some more weird behaviour. We also followed the first part of the <strong>Sum of a Range Excercise</strong> to write a <strong>range</strong> function to pass some provided tests. Once we were done, we followed the second part to write a <strong>sum</strong> function to also pass some more provided tests.</p>
-
-<p>The <strong>sum</strong> function ended up looking like this:</p>
-
-<div class="brush: js">
- <table class="sourcetable">
-  <tbody>
-   <tr>
-    <td class="linenos">
-     <div class="linenodiv">
-      <pre>1
-2
-3
-4
-5
-6
-7
-8</pre></div></td>
-    <td class="code">
-     <div class="source">
-      <pre><span></span><span class="c1">//array.js</span>
-<span class="kd">function</span> <span class="nx">sum</span><span class="p">(</span><span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">sum</span> <span class="o">+=</span> <span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">sum</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</td></tr></tbody></table>
-</div>
-
-<h2 id="variadic-functions">Variadic Functions</h2>
-
-<p>Then, we learned about variadic functions in JavaScript. We looked over three functions:</p>
-
-<ol>
- <li><code>makemap</code> - uses the <code>arguments</code> object (similar to an array of all arguments passed to the function)</li>
- <li><code>brag</code> - uses rest arguments similar to those in Racket</li>
- <li><code>win</code> - sets default valuet for a function parameter</li></ol>
-
-<p>Finally, we added an optional step argument to the previous <strong>range</strong> function so that it passed the new tests as well as the original tests.</p>
-
-<p>The <strong>range</strong> function ended up looking like this:</p>
-
-<div class="brush: js">
- <table class="sourcetable">
-  <tbody>
-   <tr>
-    <td class="linenos">
-     <div class="linenodiv">
-      <pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15</pre></div></td>
-    <td class="code">
-     <div class="source">
-      <pre><span></span><span class="c1">//array.js</span>
-<span class="kd">function</span> <span class="nx">range</span><span class="p">(</span><span class="nx">start</span><span class="p">,</span> <span class="nx">end</span><span class="p">,</span> <span class="nx">step</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[];</span>
-    <span class="k">if</span><span class="p">(</span><span class="nx">step</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">start</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&gt;=</span> <span class="nx">end</span><span class="p">;</span> <span class="nx">i</span><span class="o">+=</span><span class="nx">step</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">array</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="k">else</span> <span class="p">{</span>
-        <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">start</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">end</span><span class="p">;</span> <span class="nx">i</span><span class="o">+=</span><span class="nx">step</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">array</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">array</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</td></tr></tbody></table>
-</div>
-  <footer>
-    <a href='/2019/10/lab-10.html'>&hellip; more &hellip;</a>
-  </footer>
-</article>
 <footer>
  <ul class="pagination">
   <li class="page-item disabled"><a class="page-link" href="#">
     <quote>&larr;</quote></a></li>
   <li class="page-item active"><a class="page-link" href="/index.html">1</a></li>
   <li class="page-item"><a class="page-link" href="/index-2.html">2</a></li>
+  <li class="page-item"><a class="page-link" href="/index-3.html">3</a></li>
   <li class="page-item"><a class="page-link" href="/index-2.html">
     <quote>&rarr;</quote></a></li></ul></footer>
         </div>

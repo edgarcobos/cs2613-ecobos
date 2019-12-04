@@ -1,3 +1,4 @@
+http://www.example.com/2019/11/lab-20.html
 http://www.example.com/2019/10/lab-8.html
 http://www.example.com/2019/10/lab-13.html
 http://www.example.com/2019/10/lab-10.html
@@ -13,8 +14,11 @@ http://www.example.com/2019/09/lab-4.html
 http://www.example.com/2019/09/edgar-s-post.html
 http://www.example.com/2019/10/lab-11.html
 http://www.example.com/2019/09/lab-6.html
+http://www.example.com/2019/12/lab-23.html
 http://www.example.com/2019/10/lab-16.html
+http://www.example.com/2019/12/lab-22.html
 http://www.example.com/2019/11/lab-18.html
 http://www.example.com/2019/10/lab-9.html
+http://www.example.com/2019/11/lab-21.html
 http://www.example.com/2019/10/lab-14.html
 http://www.example.com/About.html
